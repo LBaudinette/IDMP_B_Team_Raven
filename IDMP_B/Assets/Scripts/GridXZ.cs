@@ -16,7 +16,7 @@ public class GridXZ<TGridObject>
 
     public event ValueChangedDelegate OnGridValueChanged;
 
-    public delegate void ValueChangedDelegate(int value);
+    public delegate void ValueChangedDelegate();
 
 
     // Start is called before the first frame update
@@ -56,11 +56,11 @@ public class GridXZ<TGridObject>
     }
 
     //Returns the world position of a cell from the grid
-    private Vector3 GetWorldPos(int x, int y) {
+    public Vector3 GetWorldPos(int x, int y) {
         return new Vector3(x, 0, y) * cellSize + gridOrigin;
     }
 
-    //returns the cell position according to a world position
+    //returns the cell indices according to a world position
     public Vector3 GetXZCell(Vector3 worldPos) {
         //A worldPos of 8 and a cellSize of 3 would return the second cell as 8/3 = 2.66
         return new Vector3(Mathf.FloorToInt(worldPos.x - gridOrigin.x / cellSize), 
@@ -75,8 +75,8 @@ public class GridXZ<TGridObject>
         }
     }
 
-    public void TriggerGridObjectChanged(int value) {
-        OnGridValueChanged?.Invoke(value);
+    public void TriggerGridObjectChanged() {
+        OnGridValueChanged?.Invoke();
     }
 
     public void SetGridObject(Vector3 worldPos, TGridObject value) {
@@ -85,6 +85,7 @@ public class GridXZ<TGridObject>
         Debug.Log(gridPos);
     }
 
+    //returns a grid object using an x and y index
     public TGridObject GetGridObject(int x, int y) {
         if (x >= 0 && y >= 0 && x <= width && y <= height) {
             return gridArray[x, y];
