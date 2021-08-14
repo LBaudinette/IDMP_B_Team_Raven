@@ -60,7 +60,7 @@ public class GridXZ<TGridObject>
         return new Vector3(x, 0, y) * cellSize + gridOrigin;
     }
 
-    //returns the cell indices according to a world position
+    //returns the cell indices in a Vector3 according to a world position
     public Vector3 GetXZCell(Vector3 worldPos) {
         //A worldPos of 8 and a cellSize of 3 would return the second cell as 8/3 = 2.66
         return new Vector3(Mathf.FloorToInt(worldPos.x - gridOrigin.x / cellSize), 
@@ -88,6 +88,7 @@ public class GridXZ<TGridObject>
     //returns a grid object using an x and y index
     public TGridObject GetGridObject(int x, int y) {
         if (x >= 0 && y >= 0 && x <= width && y <= height) {
+            //Debug.Log($"X: {x} + Y: {y}");
             return gridArray[x, y];
         }
         else {
@@ -101,6 +102,9 @@ public class GridXZ<TGridObject>
     }
 
     public Vector3 getMouseWorldPos() {
+        int layerMask = 1 << 3;
+        layerMask = ~layerMask;
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray, out RaycastHit hit)) {
             return hit.point;

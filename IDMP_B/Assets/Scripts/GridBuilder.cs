@@ -15,6 +15,20 @@ public class GridBuilder : MonoBehaviour {
     [SerializeField] private int height = 10;
     [SerializeField] private float cellSize = 1.0f;
 
+    [SerializeField] private Material buildableMat;
+    [SerializeField] private Material notBuildableMat;
+
+    private Material currentBuildingMat;
+    private GameObject currentGhostBuilding;
+
+    private BuildingMode currentMode = BuildingMode.Idle;
+
+    private Coroutine coroutine;
+
+    private enum BuildingMode {
+        Build, Destroy, Idle
+    }
+
     // Start is called before the first frame update
     void Start() {
         width = 10;
@@ -33,80 +47,193 @@ public class GridBuilder : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         Vector3 mousePos = grid.getMouseWorldPos();
+        if (Input.GetKeyDown(",") && currentMode != BuildingMode.Build) {
+            StartBuildMode();
+            currentMode = BuildingMode.Build;
+            UtilsClass.CreateWorldTextPopup(currentMode.ToString(), mousePos, 2);
+
+        }
+        else if (Input.GetKeyDown(".")) {
+            StartDestroyMode();
+            currentMode = BuildingMode.Destroy;
+            UtilsClass.CreateWorldTextPopup(currentMode.ToString(), mousePos, 2);
+
+        }
+        else if (Input.GetKeyDown("/")) {
+            currentMode = BuildingMode.Idle;
+            UtilsClass.CreateWorldTextPopup(currentMode.ToString(), mousePos, 2);
+
+        }
+
+
+        switch (currentMode) {
+            case BuildingMode.Build:
+                BuildMode(mousePos);
+                break;
+            case BuildingMode.Destroy:
+                DestroyMode(mousePos);
+                break;
+            case BuildingMode.Idle:
+                break;
+        }
+
+    }
+
+    private void StartBuildMode() {
+        //Instantiate a ghost version of the current building
+        Vector3 mousePos = grid.getMouseWorldPos();
+        currentGhostBuilding =
+                   Instantiate(
+                       currentBuilding.buildingPrefab,
+                       mousePos,
+                       Quaternion.Euler(0, BuildingSO.GetDirectionAngle(currentDirection),
+                       0));
+        currentGhostBuilding.GetComponentInChildren<MeshRenderer>().material = buildableMat;
+    }
+
+    private void BuildMode(Vector3 mousePos) {
 
         if (Input.GetKeyDown("1")) {
-            currentBuilding = buildingList[0];
+            CreateNewGhostBuilding(buildingList[0], mousePos);
 
             UtilsClass.CreateWorldTextPopup(currentBuilding.name, mousePos, 2);
 
         }
         else if (Input.GetKeyDown("2")) {
-            currentBuilding = buildingList[1];
+
+            CreateNewGhostBuilding(buildingList[1], mousePos);
 
             UtilsClass.CreateWorldTextPopup(currentBuilding.name, mousePos, 2);
 
         }
         else if (Input.GetKeyDown("3")) {
-            currentBuilding = buildingList[2];
+            CreateNewGhostBuilding(buildingList[2], mousePos);
 
             UtilsClass.CreateWorldTextPopup(currentBuilding.name, mousePos, 2);
 
+
         }
 
+        //Make the ghost building follow the mouse
+        //currentGhostBuilding.transform.position = mousePos;
 
-        if (Input.GetMouseButtonDown(0)) {
-            bool canBuild = true;
-            Vector3 gridCellIndices = grid.GetXZCell(mousePos);
+        bool canBuild = true;
 
-
-            Vector3 rotationOffset = currentBuilding.GetAnglePosOffset(currentDirection);
-            Vector3 buildingSpawnPos =
+        //Get the Cell indices in a Vector3 that we want to build in
+        Vector3 gridCellIndices = grid.GetXZCell(mousePos);
+        Vector3 rotationOffset = currentBuilding.GetAnglePosOffset(currentDirection);
+        Vector3 buildingSpawnPos =
                 grid.GetWorldPos((int)gridCellIndices.x, (int)gridCellIndices.z) + rotationOffset * cellSize;
 
-            GridObject gridObject = grid.GetGridObject(mousePos);
+        UpdateGhostBuilding(buildingSpawnPos);
 
-            List<Vector3> occupiedGridCells = currentBuilding.GetGridPositionList(gridCellIndices, currentDirection);
+        
 
-            foreach (Vector3 gridPos in occupiedGridCells) {
-                if (!grid.GetGridObject((int)gridPos.x, (int)gridPos.z).CanBuild()) {
-                    canBuild = false;
-                    break;
-                }
 
-            }
+        GridObject gridObject = grid.GetGridObject(mousePos);
 
-            if (canBuild) {
-                GameObject buildingObj =
-                    Instantiate(
-                        currentBuilding.buildingPrefab,
-                        buildingSpawnPos,
-                        Quaternion.Euler(0, BuildingSO.GetDirectionAngle(currentDirection),
-                        0));
+        List<Vector3> occupiedGridCells = currentBuilding.GetGridPositionList(gridCellIndices, currentDirection);
 
-                foreach (Vector3 gridPos in occupiedGridCells) {
-                    //Set the building occupying the grid objects to the one we just instantiated
-                    grid.GetGridObject((int)gridPos.x, (int)gridPos.z).setBuilding(buildingObj);
-                }
+        //Check if we can build in the space that we click on
+        foreach (Vector3 gridPos in occupiedGridCells) {
+            int x = (int)gridPos.x;
+            int y = (int)gridPos.y;
 
-                gridObject.setBuilding(buildingObj);
+            if (x >= 0 && y >= 0 && x <= width && y <= height 
+                && grid.GetGridObject((int)gridPos.x, (int)gridPos.z).CanBuild() && gridObject != default) {
             }
             else {
-                UtilsClass.CreateWorldTextPopup("Cannot build here!", mousePos);
+                canBuild = false;
+            }
+        }
+
+        if (canBuild) {
+            //Debug.Log("CAN BUILD");
+            currentGhostBuilding.GetComponentInChildren<MeshRenderer>().material = buildableMat;
+            if (Input.GetMouseButtonDown(0)) {
+                CreateBuilding(
+                        buildingSpawnPos, Quaternion.Euler(0, BuildingSO.GetDirectionAngle(currentDirection), 0), currentBuilding, gridCellIndices);
+
+
+                //gridObject.setBuilding(buildingObj);
             }
 
+        }
+        else {
+            currentGhostBuilding.GetComponentInChildren<MeshRenderer>().material = notBuildableMat;
+            if (Input.GetMouseButtonDown(0))
+                UtilsClass.CreateWorldTextPopup("Cannot build here!", mousePos);
+
 
         }
-        else if (Input.GetMouseButtonDown(1)) {
+
+         if (Input.GetMouseButtonDown(1)) {
             currentDirection = BuildingSO.GetNextDirection(currentDirection);
             UtilsClass.CreateWorldTextPopup(currentDirection.ToString(), mousePos, 2);
-        }
-
-
+        } 
 
     }
 
+    private void StartDestroyMode() {
+        if(currentMode == BuildingMode.Build)
+            Destroy(currentGhostBuilding);
+    }
 
+    private void DestroyMode(Vector3 mousePos) {
+        if (Input.GetMouseButton(0)) {
+            GameObject building = grid.GetGridObject(mousePos).GetBuildingObject();
+            if (building != null) {
+                BuildingScript buildingScript = building.GetComponent<BuildingScript>();
+                List<Vector3> gridCells = buildingScript.GetGridPositionList();
 
+                foreach (Vector3 gridPos in gridCells) {
+                    //Set the building occupying the grid objects to the one we just instantiated
+                    grid.GetGridObject((int)gridPos.x, (int)gridPos.z).ClearTransform();
+                }
+                buildingScript.DestroyThis();
+
+            }
+        }
+    }
+
+    
+
+    private void UpdateGhostBuilding(Vector3 newPos) {
+
+        currentGhostBuilding.transform.position = newPos;
+        currentGhostBuilding.transform.rotation =
+            Quaternion.Euler(0, BuildingSO.GetDirectionAngle(currentDirection), 0);
+    }
+
+    private void CreateNewGhostBuilding(BuildingSO newBuilding, Vector3 mousePos) {
+        currentBuilding = newBuilding;
+        Destroy(currentGhostBuilding);
+        currentGhostBuilding = newBuilding.buildingPrefab;
+
+        currentGhostBuilding =
+                   Instantiate(
+                       currentBuilding.buildingPrefab,
+                       mousePos,
+                       Quaternion.Euler(0, BuildingSO.GetDirectionAngle(currentDirection),
+                       0));
+        currentGhostBuilding.GetComponentInChildren<MeshRenderer>().material = buildableMat;
+    }
+
+    public void CreateBuilding(Vector3 spawnPos, Quaternion rotation, BuildingSO buildingSO, Vector3 originIndices) {
+        Debug.Log("CREATE");
+        GameObject buildingObj = Instantiate(currentBuilding.buildingPrefab, spawnPos, rotation);
+
+        List<Vector3> occupiedGridCells = currentBuilding.GetGridPositionList(originIndices, currentDirection);
+
+        foreach (Vector3 gridPos in occupiedGridCells) {
+            //Set the building occupying the grid objects to the one we just instantiated
+            grid.GetGridObject((int)gridPos.x, (int)gridPos.z).setBuilding(buildingObj);
+        }
+
+        BuildingScript script = buildingObj.GetComponent<BuildingScript>();
+        script.InitValues(buildingSO, new Vector3Int((int)spawnPos.x, 0 ,(int)spawnPos.z), currentDirection);
+
+    }
 
 }
 
