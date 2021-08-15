@@ -8,7 +8,7 @@ public class DialogueActivator : MonoBehaviour, InteractableInterface
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player") && other.TryGetComponent(out Player player))
+        if(other.CompareTag("Player") && other.TryGetComponent(out PlayerTest player))
         {
             player.Interactable = this;
         }
@@ -16,7 +16,7 @@ public class DialogueActivator : MonoBehaviour, InteractableInterface
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.CompareTag("Player") && other.TryGetComponent(out Player player))
+        if(other.CompareTag("Player") && other.TryGetComponent(out PlayerTest player))
         {
             if(player.Interactable is DialogueActivator dialogueActivator && dialogueActivator == this)
             {
@@ -25,7 +25,7 @@ public class DialogueActivator : MonoBehaviour, InteractableInterface
         }
     }
 
-    public void Interact(Player player)
+    public void Interact(PlayerTest player)
     {
         player.GetDialogueUI().ShowDialogue(dialogueObject);
     }
