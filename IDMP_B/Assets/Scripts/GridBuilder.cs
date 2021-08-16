@@ -11,9 +11,9 @@ public class GridBuilder : MonoBehaviour {
     //The current direction that the building we want to build is facing
     private BuildingSO.Direction currentDirection = BuildingSO.Direction.Down;
 
-    [SerializeField] private int width = 10;
-    [SerializeField] private int height = 10;
-    [SerializeField] private float cellSize = 1.0f;
+    [SerializeField] private int width;
+    [SerializeField] private int height;
+    [SerializeField] private float cellSize;
 
     [SerializeField] private Material buildableMat;
     [SerializeField] private Material notBuildableMat;
@@ -31,9 +31,6 @@ public class GridBuilder : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        width = 10;
-        height = 10;
-        cellSize = 1.0f;
         grid = new GridXZ<GridObject>(width, height, cellSize, transform.position, (gridXZ, x, y) => new GridObject(gridXZ, x, y));
         currentBuilding = buildingList[0];
 
