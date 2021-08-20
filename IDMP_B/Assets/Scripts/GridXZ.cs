@@ -87,7 +87,7 @@ public class GridXZ<TGridObject>
 
     //returns a grid object using an x and y index
     public TGridObject GetGridObject(int x, int y) {
-        if (x >= 0 && y >= 0 && x <= width && y <= height) {
+        if (x >= 0 && y >= 0 && x <= width - 1 && y <= height - 1) {
             //Debug.Log($"X: {x} + Y: {y}");
             return gridArray[x, y];
         }
