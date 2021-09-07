@@ -136,10 +136,8 @@ public class GridBuilder : MonoBehaviour {
             int x = (int)gridPos.x;
             int y = (int)gridPos.y;
 
-            if (x >= 0 && y >= 0 && x <= width - 1 && y <= height - 1  && gridObject != default) {
-                if(grid.GetGridObject((int)gridPos.x, (int)gridPos.z).CanBuild()) {
-
-                }
+            if (x >= 0 && y >= 0 && x <= width && y <= height 
+                && grid.GetGridObject((int)gridPos.x, (int)gridPos.z).CanBuild() && gridObject != default) {
             }
             else {
                 canBuild = false;
@@ -149,9 +147,6 @@ public class GridBuilder : MonoBehaviour {
         if (canBuild) {
             //Debug.Log("CAN BUILD");
             currentGhostBuilding.GetComponentInChildren<MeshRenderer>().material = buildableMat;
-            for(int i = 0; i < gameObject.transform.childCount; i++) {
-                gameObject.transform.GetChild(i).GetComponent<MeshRenderer>().material = buildableMat;
-            }
             if (Input.GetMouseButtonDown(0)) {
                 CreateBuilding(
                         buildingSpawnPos, Quaternion.Euler(0, BuildingSO.GetDirectionAngle(currentDirection), 0), currentBuilding, gridCellIndices);
