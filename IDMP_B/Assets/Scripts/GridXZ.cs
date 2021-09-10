@@ -87,9 +87,16 @@ public class GridXZ<TGridObject>
 
     //returns a grid object using an x and y index
     public TGridObject GetGridObject(int x, int y) {
-        if (x >= 0 && y >= 0 && x <= width && y <= height) {
-            //Debug.Log($"X: {x} + Y: {y}");
-            return gridArray[x, y];
+        if (x >= 0 && y >= 0 && x <= width && y <= height - 1) {
+            
+            try {
+                return gridArray[x, y];
+            }
+            catch {
+                Debug.Log($" INVALID POSITION X: {x} + Y: {y}");
+                return gridArray[0, 0];
+            }
+            
         }
         else {
             return default;

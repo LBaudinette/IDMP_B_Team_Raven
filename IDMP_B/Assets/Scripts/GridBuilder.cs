@@ -85,7 +85,7 @@ public class GridBuilder : MonoBehaviour {
                        mousePos,
                        Quaternion.Euler(0, BuildingSO.GetDirectionAngle(currentDirection),
                        0));
-        currentGhostBuilding.GetComponentInChildren<MeshRenderer>().material = buildableMat;
+        currentGhostBuilding.GetComponentInChildren<MeshRenderer>().material = notBuildableMat;
     }
 
     private void BuildMode(Vector3 mousePos) {
@@ -109,6 +109,11 @@ public class GridBuilder : MonoBehaviour {
             UtilsClass.CreateWorldTextPopup(currentBuilding.name, mousePos, 2);
 
 
+        }
+
+        if (Input.GetMouseButtonDown(1)) {
+            currentDirection = BuildingSO.GetNextDirection(currentDirection);
+            UtilsClass.CreateWorldTextPopup(currentDirection.ToString(), mousePos, 2);
         }
 
         //Make the ghost building follow the mouse
@@ -136,17 +141,26 @@ public class GridBuilder : MonoBehaviour {
             int x = (int)gridPos.x;
             int y = (int)gridPos.y;
 
-            if (x >= 0 && y >= 0 && x <= width && y <= height 
-                && grid.GetGridObject((int)gridPos.x, (int)gridPos.z).CanBuild() && gridObject != default) {
+            if (x >= 0 && y >= 0 && x <= width - 1 && y <= height - 1
+               && grid.GetGridObject((int)gridPos.x, (int)gridPos.z).CanBuild() && gridObject != default) {
+                //Can Build on this node
             }
             else {
+                //UtilsClass.CreateWorldTextPopup("Cannot build here!", mousePos);
                 canBuild = false;
             }
         }
 
         if (canBuild) {
             //Debug.Log("CAN BUILD");
+
+            //Set the building and its components material to show that it is buildable
             currentGhostBuilding.GetComponentInChildren<MeshRenderer>().material = buildableMat;
+            for (int i = 0; i < gameObject.transform.childCount; i++) {
+                gameObject.transform.GetChild(i).GetComponent<MeshRenderer>().material = buildableMat;
+            }
+
+
             if (Input.GetMouseButtonDown(0)) {
                 CreateBuilding(
                         buildingSpawnPos, Quaternion.Euler(0, BuildingSO.GetDirectionAngle(currentDirection), 0), currentBuilding, gridCellIndices);
@@ -164,10 +178,7 @@ public class GridBuilder : MonoBehaviour {
 
         }
 
-         if (Input.GetMouseButtonDown(1)) {
-            currentDirection = BuildingSO.GetNextDirection(currentDirection);
-            UtilsClass.CreateWorldTextPopup(currentDirection.ToString(), mousePos, 2);
-        } 
+         
 
     }
 
@@ -223,8 +234,10 @@ public class GridBuilder : MonoBehaviour {
         List<Vector3> occupiedGridCells = currentBuilding.GetGridPositionList(originIndices, currentDirection);
 
         foreach (Vector3 gridPos in occupiedGridCells) {
+
             //Set the building occupying the grid objects to the one we just instantiated
             grid.GetGridObject((int)gridPos.x, (int)gridPos.z).setBuilding(buildingObj);
+           //Debug.Log($" Grid Position: X: {grid.GetGridObject((int)gridPos.x, (int)gridPos.z).x} + Z: {grid.GetGridObject((int)gridPos.x, (int)gridPos.z).z}");
         }
 
         BuildingScript script = buildingObj.GetComponent<BuildingScript>();

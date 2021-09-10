@@ -5,7 +5,7 @@ using CodeMonkey.Utils;
 
 
 public class GridObject {
-    private int x, z;
+    public int x, z;
     GridXZ<GridObject> grid;
     private GameObject building;
 
