@@ -7,7 +7,8 @@ using CodeMonkey.Utils;
 public class GridObject {
     public int x, z;
     GridXZ<GridObject> grid;
-    private GameObject building;
+    private GameObject primaryBuilding;         //Hold buildings
+    private GameObject secondaryBuilding;       //Holds level structures such as resource nodes
 
 
     public GridObject(GridXZ<GridObject> grid, int x, int z) {
@@ -17,24 +18,33 @@ public class GridObject {
     }
 
     public void setBuilding(GameObject newBuilding) {
-        building = newBuilding;
+       primaryBuilding = newBuilding;
         grid.TriggerGridObjectChanged();
     }
 
+    public void setSecondary(GameObject secondary) {
+        secondaryBuilding = secondary;
+    }
+
+
     //Demolish a building
     public void ClearTransform() {
-        building = null;
+       primaryBuilding = null;
         grid.TriggerGridObjectChanged();
 
     }
 
     public GameObject GetBuildingObject() {
-        return building;
+        return primaryBuilding;
+    }
+
+    public GameObject GetSecBuildingObject() {
+        return secondaryBuilding;
     }
 
 
     public bool CanBuild() {
-        return building == null;
+        return primaryBuilding == null && secondaryBuilding == null;
     }
 
     public override string ToString() {

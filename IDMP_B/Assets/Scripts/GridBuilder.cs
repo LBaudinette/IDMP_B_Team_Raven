@@ -5,7 +5,10 @@ using CodeMonkey.Utils;
 
 public class GridBuilder : MonoBehaviour {
     private GridXZ<GridObject> grid;
-    [SerializeField] private List<BuildingSO> buildingList;
+    [SerializeField] private List<BuildingSO> buildingList;     //Holds buildings that the player can create
+    [SerializeField] private List<BuildingSO> resourceList;     //Holds resource nodes
+    [SerializeField] private List<Vector3> resourcePosList;  //Holds resource positions
+
     private BuildingSO currentBuilding;
 
     //The current direction that the building we want to build is facing
@@ -35,6 +38,12 @@ public class GridBuilder : MonoBehaviour {
         currentBuilding = buildingList[0];
 
         grid.OnGridValueChanged += Grid_OnGridValueChanged;
+
+        //Initialise resource nodes
+        foreach(Vector3 indices in resourcePosList) {
+            CreateSecondary(indices, resourceList[0]);
+        }
+
     }
 
     private void Grid_OnGridValueChanged() {
@@ -60,7 +69,7 @@ public class GridBuilder : MonoBehaviour {
             currentMode = BuildingMode.Idle;
             UtilsClass.CreateWorldTextPopup(currentMode.ToString(), mousePos, 2);
 
-        }
+        } 
 
 
         switch (currentMode) {
@@ -90,6 +99,7 @@ public class GridBuilder : MonoBehaviour {
 
     private void BuildMode(Vector3 mousePos) {
 
+        #region Building Options
         if (Input.GetKeyDown("1")) {
             CreateNewGhostBuilding(buildingList[0], mousePos);
 
@@ -110,14 +120,19 @@ public class GridBuilder : MonoBehaviour {
 
 
         }
+        else if (Input.GetKeyDown("4")) { //Harvester
+            CreateNewGhostBuilding(buildingList[3], mousePos);
+
+            UtilsClass.CreateWorldTextPopup(currentBuilding.name, mousePos, 2);
+
+
+        }
 
         if (Input.GetMouseButtonDown(1)) {
             currentDirection = BuildingSO.GetNextDirection(currentDirection);
             UtilsClass.CreateWorldTextPopup(currentDirection.ToString(), mousePos, 2);
         }
-
-        //Make the ghost building follow the mouse
-        //currentGhostBuilding.transform.position = mousePos;
+        #endregion
 
         bool canBuild = true;
 
@@ -129,6 +144,9 @@ public class GridBuilder : MonoBehaviour {
 
         UpdateGhostBuilding(buildingSpawnPos);
 
+        if (Input.GetKeyDown("h")) {
+            Debug.Log($"CELL INDICES: {gridCellIndices}");
+        }
         
 
 
@@ -151,34 +169,58 @@ public class GridBuilder : MonoBehaviour {
             }
         }
 
-        if (canBuild) {
-            //Debug.Log("CAN BUILD");
+        #region Special Building Checks
+        //If it is a building that can only be built on certain nodes, check if it is on a node
+        //Ideally buildings like harvesters should be 1x1
+        if (currentBuilding.buildingPrefab.CompareTag("Harvester")) {
+            //Initially set to false as it can only be built on certain nodes
+            canBuild = false;
 
+            //Check the node that it is being built on
+            if (gridObject.GetSecBuildingObject() != null) {
+
+                //Check if there is a resource node and there is no other buildings on top of ot
+                if (gridObject.GetSecBuildingObject().CompareTag("ResourceNode") && 
+                    gridObject.GetBuildingObject() == null) {
+                    canBuild = true;
+                }
+            }
+            
+        }
+        #endregion
+
+
+        #region Building Code
+        if (canBuild) {
             //Set the building and its components material to show that it is buildable
             currentGhostBuilding.GetComponentInChildren<MeshRenderer>().material = buildableMat;
-            for (int i = 0; i < gameObject.transform.childCount; i++) {
-                gameObject.transform.GetChild(i).GetComponent<MeshRenderer>().material = buildableMat;
+            MeshRenderer[] childRenderers = currentGhostBuilding.GetComponentsInChildren<MeshRenderer>();
+            foreach(MeshRenderer currentRenderer in childRenderers) {
+                currentRenderer.material = buildableMat;
             }
 
 
             if (Input.GetMouseButtonDown(0)) {
                 CreateBuilding(
                         buildingSpawnPos, Quaternion.Euler(0, BuildingSO.GetDirectionAngle(currentDirection), 0), currentBuilding, gridCellIndices);
-
-
-                //gridObject.setBuilding(buildingObj);
             }
 
         }
         else {
-            currentGhostBuilding.GetComponentInChildren<MeshRenderer>().material = notBuildableMat;
             if (Input.GetMouseButtonDown(0))
                 UtilsClass.CreateWorldTextPopup("Cannot build here!", mousePos);
 
+            //Set the building and its components material to show that it is buildable
+            currentGhostBuilding.GetComponentInChildren<MeshRenderer>().material = notBuildableMat;
+            MeshRenderer[] childRenderers = currentGhostBuilding.GetComponentsInChildren<MeshRenderer>();
+            foreach (MeshRenderer currentRenderer in childRenderers) {
+                currentRenderer.material = notBuildableMat;
+            }
 
         }
+        #endregion
 
-         
+
 
     }
 
@@ -224,7 +266,7 @@ public class GridBuilder : MonoBehaviour {
                        mousePos,
                        Quaternion.Euler(0, BuildingSO.GetDirectionAngle(currentDirection),
                        0));
-        currentGhostBuilding.GetComponentInChildren<MeshRenderer>().material = buildableMat;
+        currentGhostBuilding.GetComponentInChildren<MeshRenderer>().material = notBuildableMat;
     }
 
     public void CreateBuilding(Vector3 spawnPos, Quaternion rotation, BuildingSO buildingSO, Vector3 originIndices) {
@@ -241,9 +283,25 @@ public class GridBuilder : MonoBehaviour {
         }
 
         BuildingScript script = buildingObj.GetComponent<BuildingScript>();
+
+        //switch statement that accesses the output value and changes it depending if it is placed on a node
+
+
         script.InitValues(buildingSO, new Vector3Int((int)spawnPos.x, 0 ,(int)spawnPos.z), currentDirection);
 
     }
 
+    //Takes a Vector3 containing grid indices and the type of building to make
+    public void CreateSecondary(Vector3 gridIndices, BuildingSO buildingSO) {
+        Vector3 spawnPos = grid.GetWorldPos((int)gridIndices.x, (int)gridIndices.z) * cellSize;
+
+        GameObject buildingObj = Instantiate(
+            buildingSO.buildingPrefab, 
+            spawnPos, 
+            Quaternion.Euler(new Vector3(0.0f,0.0f,0.0f)));
+
+        grid.GetGridObject((int)gridIndices.x, (int)gridIndices.z).setSecondary(buildingObj);
+
+    }
 }
 

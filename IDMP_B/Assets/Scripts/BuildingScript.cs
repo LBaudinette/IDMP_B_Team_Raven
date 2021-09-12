@@ -8,6 +8,9 @@ public class BuildingScript : MonoBehaviour
     private Vector3Int originPos;
     private BuildingSO.Direction currentDir;
 
+    [SerializeField]
+    private int output;
+
     public void InitValues(BuildingSO buildingSO, Vector3Int origin, BuildingSO.Direction dir) {
         buildingTypeSO = buildingSO;
         originPos = origin;
