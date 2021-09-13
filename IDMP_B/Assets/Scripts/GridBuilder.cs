@@ -7,7 +7,7 @@ public class GridBuilder : MonoBehaviour {
     private GridXZ<GridObject> grid;
     [SerializeField] private List<BuildingSO> buildingList;     //Holds buildings that the player can create
     [SerializeField] private List<BuildingSO> resourceList;     //Holds resource nodes
-    [SerializeField] private List<Vector3> resourcePosList;  //Holds resource positions
+    [SerializeField] private List<Vector3> resourcePosList;     //Holds resource positions
 
     private BuildingSO currentBuilding;
 
@@ -127,6 +127,13 @@ public class GridBuilder : MonoBehaviour {
 
 
         }
+        else if (Input.GetKeyDown("5")) { //Conveyor 
+            CreateNewGhostBuilding(buildingList[4], mousePos);
+
+            UtilsClass.CreateWorldTextPopup(currentBuilding.name, mousePos, 2);
+
+
+        }
 
         if (Input.GetMouseButtonDown(1)) {
             currentDirection = BuildingSO.GetNextDirection(currentDirection);
@@ -138,6 +145,7 @@ public class GridBuilder : MonoBehaviour {
 
         //Get the Cell indices in a Vector3 that we want to build in
         Vector3 gridCellIndices = grid.GetXZCell(mousePos);
+
         Vector3 rotationOffset = currentBuilding.GetAnglePosOffset(currentDirection);
         Vector3 buildingSpawnPos =
                 grid.GetWorldPos((int)gridCellIndices.x, (int)gridCellIndices.z) + rotationOffset * cellSize;
