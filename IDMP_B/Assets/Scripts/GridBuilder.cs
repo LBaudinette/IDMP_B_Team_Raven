@@ -235,5 +235,30 @@ public class GridBuilder : MonoBehaviour {
 
     }
 
+    public Vector3 GetMouseWorldPos()
+    {
+        return grid.getMouseWorldPos();
+    }
+
+    public Vector3 GetXZCell(Vector3 pos)
+    {
+        return grid.GetXZCell(pos);
+    }
+
+    public GridObject GetGridObject(Vector3 pos)
+    {
+        return grid.GetGridObject(pos);
+    }
+
+    public Vector3 GetWorldPos(int x, int y)
+    {
+        return grid.GetWorldPos(x, y);
+    }
+
+    public float GetCellSize()
+    {
+        return cellSize;
+    }
+
 }
 

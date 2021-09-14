@@ -26,7 +26,15 @@ public class LevelManager : MonoBehaviour
         {
             // player exceeded action limit
             // restart level / reload scene
+        } else
+        {
+            // else, check for level completion
         }
+    }
+
+    void CheckCompletion()
+    {
+        //if complete, call OnLevelCompleted
     }
 
     void OnLevelCompleted()
