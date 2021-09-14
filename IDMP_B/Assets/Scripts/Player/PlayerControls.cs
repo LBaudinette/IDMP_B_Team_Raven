@@ -30,19 +30,22 @@ public class PlayerControls : MonoBehaviour
         // if player inputs left click to move
         if (Input.GetMouseButtonDown(0))
         {
+            // get target node pos and node obj
             Vector3 mousePos = gb.GetMouseWorldPos();
-            Vector3 gridPos = gb.GetXZCell(mousePos);
-            GridObject gridObj = gb.GetGridObject(mousePos);
-            if (gridObj != default)
+            Vector3 nodePos = gb.GetXZCell(mousePos);
+            GridObject nodeObj = gb.GetGridObject(mousePos);
+
+            // if obj is not outside grid bounds && can be built on (and thus walked on)
+            if (nodeObj != default && nodeObj.CanBuild())
             {
                 //if grid node at mouse position is adjacent to player's current position
-                float xDiff = gridPos.x - pos.x;
-                float zDiff = gridPos.z - pos.z;
+                float xDiff = nodePos.x - pos.x;
+                float zDiff = nodePos.z - pos.z;
                 if ((Mathf.Abs(xDiff) == 1 && zDiff == 0) || (Mathf.Abs(zDiff) == 1 && xDiff == 0))
                 {
                     //update player's position to adjacent grid node
-                    pos.x = gridPos.x;
-                    pos.z = gridPos.z;
+                    pos.x = nodePos.x;
+                    pos.z = nodePos.z;
                     UpdateGridPos();
 
                 }

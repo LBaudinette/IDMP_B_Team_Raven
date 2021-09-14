@@ -28,7 +28,8 @@ public class LevelManager : MonoBehaviour
             // restart level / reload scene
         } else
         {
-            // else, check for level completion
+            // else, check for staging ground for level completion via belt output enum
+            //stagingGround.output == whatever
         }
     }
 
