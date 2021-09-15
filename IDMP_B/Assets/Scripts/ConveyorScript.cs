@@ -49,26 +49,22 @@ public class ConveyorScript : MonoBehaviour
         GridObject down = parentGrid.GetGridObject((int)origin.x, (int)origin.z - 1);
         GridObject left = parentGrid.GetGridObject((int)origin.x - 1, (int)origin.z);
 
+
         if(up != default) {
-            if (up.GetBuildingObject().CompareTag("Conveyor"))
-                buildingScript.output.UnionWith(up.GetBuildingObject().GetComponent<BuildingScript>().output);
-            //else if (up.GetBuildingObject().CompareTag("Harvester"))
-            //    buildingScript.output.Add(up.GetBuildingObject().GetComponent<BuildingScript>().output);
+
 
         } 
         if (right != default && gameObject.CompareTag("Conveyor")) {
-            buildingScript.output.UnionWith(right.GetBuildingObject().GetComponent<BuildingScript>().output);
 
         }
         if (down != default && gameObject.CompareTag("Conveyor")) {
-            buildingScript.output.UnionWith(down.GetBuildingObject().GetComponent<BuildingScript>().output);
 
         }
         if (left != default && gameObject.CompareTag("Conveyor")) {
-            buildingScript.output.UnionWith(left.GetBuildingObject().GetComponent<BuildingScript>().output);
 
         }
 
-
+        //for each resource in adjacent conveyor
+        //add to current resources
     }
 }

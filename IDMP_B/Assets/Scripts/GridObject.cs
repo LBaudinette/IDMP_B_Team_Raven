@@ -19,7 +19,7 @@ public class GridObject {
 
     public void setBuilding(GameObject newBuilding) {
        primaryBuilding = newBuilding;
-        grid.TriggerGridObjectChanged();
+       grid.TriggerGridObjectChanged();
     }
 
     public void setSecondary(GameObject secondary) {

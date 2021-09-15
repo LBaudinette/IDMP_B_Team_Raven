@@ -299,6 +299,32 @@ public class GridBuilder : MonoBehaviour {
 
     }
 
+    public Vector3 GetMouseWorldPos()
+    {
+        return grid.getMouseWorldPos();
+    }
+
+    public Vector3 GetXZCell(Vector3 pos)
+    {
+        return grid.GetXZCell(pos);
+    }
+
+    public GridObject GetGridObject(Vector3 pos)
+    {
+        return grid.GetGridObject(pos);
+    }
+
+    public Vector3 GetWorldPos(int x, int y)
+    {
+        return grid.GetWorldPos(x, y);
+    }
+
+    public float GetCellSize()
+    {
+        return cellSize;
+    }
+
+}
     //Takes a Vector3 containing grid indices and the type of building to make
     public void CreateSecondary(Vector3 gridIndices, BuildingSO buildingSO) {
         Vector3 spawnPos = grid.GetWorldPos((int)gridIndices.x, (int)gridIndices.z) * cellSize;
