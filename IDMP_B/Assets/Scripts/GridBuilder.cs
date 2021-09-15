@@ -279,7 +279,7 @@ public class GridBuilder : MonoBehaviour {
 
     public void CreateBuilding(Vector3 spawnPos, Quaternion rotation, BuildingSO buildingSO, Vector3 originIndices) {
         Debug.Log("CREATE");
-        GameObject buildingObj = Instantiate(currentBuilding.buildingPrefab, spawnPos, rotation, );
+        GameObject buildingObj = Instantiate(currentBuilding.buildingPrefab, spawnPos, rotation, gameObject.transform );
 
         List<Vector3> occupiedGridCells = currentBuilding.GetGridPositionList(originIndices, currentDirection);
 
