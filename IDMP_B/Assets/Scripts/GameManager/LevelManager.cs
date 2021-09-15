@@ -9,6 +9,10 @@ public class LevelManager : MonoBehaviour
     public Vector3 startPos;
     GameManager gm;
 
+    public enum ResourceType {
+        Iron, Copper
+    }
+
     // Start is called before the first frame update
     void Start()
     {
