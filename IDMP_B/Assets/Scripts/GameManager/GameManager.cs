@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        
+        DontDestroyOnLoad(this.gameObject);
     }
 
     // Start is called before the first frame update
@@ -24,8 +24,13 @@ public class GameManager : MonoBehaviour
         
     }
 
-    void LoadNextLevel()
+    public void LoadNextScene()
     {
         SceneManager.LoadScene(levelIndex++);
+    }
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

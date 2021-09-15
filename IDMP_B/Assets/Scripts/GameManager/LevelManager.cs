@@ -6,12 +6,13 @@ public class LevelManager : MonoBehaviour
 {
     public int actionCount;
     public int actionLimit;
-    public Vector2Int startPos;
+    public Vector3 startPos;
+    GameManager gm;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -20,26 +21,33 @@ public class LevelManager : MonoBehaviour
 
     }
 
-    void OnNewAction()
+    public void OnNewAction()
     {
+        actionCount++;
+        // if level failed - player exceeded action limit
         if (actionCount > actionLimit)
         {
-            // player exceeded action limit
             // restart level / reload scene
+            gm.ReloadScene();
         } else
         {
-            // else, check for staging ground for level completion via belt output enum
-            //stagingGround.output == whatever
+            // else, check completion
+            CheckCompletion();
+            
         }
     }
 
     void CheckCompletion()
     {
-        //if complete, call OnLevelCompleted
+        // check for staging ground for level completion via belt output enum
+        // stagingGround.output == whatever
+
+        // if complete, call
+        // OnLevelCompleted();
     }
 
     void OnLevelCompleted()
     {
-
+        gm.LoadNextScene();
     }
 }

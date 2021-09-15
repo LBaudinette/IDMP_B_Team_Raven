@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
+    LevelManager lm;
     Vector3 pos;
     Vector3 origin;
     public GridBuilder gb;
@@ -12,8 +13,9 @@ public class PlayerControls : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        lm = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
         origin = gb.transform.position;
-        pos = Vector3.zero;
+        pos = lm.startPos;
         cellSize = gb.GetCellSize();
         UpdateGridPos();
     }
@@ -47,6 +49,9 @@ public class PlayerControls : MonoBehaviour
                     pos.x = nodePos.x;
                     pos.z = nodePos.z;
                     UpdateGridPos();
+
+                    // new action (movement) has been performed, increment action count in level manager
+                    lm.OnNewAction();
 
                 }
             }
