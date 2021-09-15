@@ -5,13 +5,25 @@ using UnityEngine;
 public class BuildingScript : MonoBehaviour
 {
     private BuildingSO buildingTypeSO;
-    private Vector3Int originPos;
+    private Vector3 originPos;   //Stores the origin indices in the grid 
     private BuildingSO.Direction currentDir;
+    private GridXZ<GridObject> parentGrid;
 
-    public void InitValues(BuildingSO buildingSO, Vector3Int origin, BuildingSO.Direction dir) {
+    //[SerializeField]
+    public HashSet<int> output;    //Use HashSet as it only allows unique elements
+
+    public void InitValues(BuildingSO buildingSO, Vector3 origin, BuildingSO.Direction dir, GridXZ<GridObject> grid) {
         buildingTypeSO = buildingSO;
         originPos = origin;
         currentDir = dir;
+        parentGrid = grid;
+        output = new HashSet<int>();
+
+        //If this building is on top of a iron node, set its output to iron
+        if (parentGrid.GetGridObject(originPos).GetSecBuildingObject().CompareTag("IronNode")){
+            output.Add(1);
+            Debug.Log("OUTPUT ADDED");
+        }
     }
 
     public void DestroyThis() {
@@ -24,6 +36,13 @@ public class BuildingScript : MonoBehaviour
         return buildingTypeSO.GetGridPositionList(originPos, currentDir);
     }
 
+    public GridXZ<GridObject> GetGrid() {
+        return parentGrid;
+    }
+
+    public Vector3 GetOrigin() {
+        return originPos;
+    }
 }
 
 
