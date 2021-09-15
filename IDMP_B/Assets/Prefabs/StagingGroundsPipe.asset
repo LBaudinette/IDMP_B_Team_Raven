@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: StagingGroundsPipe
   m_EditorClassIdentifier: 
   buildingName: StagingGroundsPipe
-  buildingPrefab: {fileID: 0}
+  buildingPrefab: {fileID: 2889603938360476467, guid: 9b5c135bab7e3164b88d760bbf917716, type: 3}
   width: 1
   height: 1

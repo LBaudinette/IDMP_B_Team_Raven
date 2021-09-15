@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Harvester
   m_EditorClassIdentifier: 
   buildingName: Harvester
-  buildingPrefab: {fileID: 74303978054565076, guid: 55fbdc2dd61d7f24fb708ae01f0f5953, type: 3}
+  buildingPrefab: {fileID: 6295920708746600488, guid: f90770f517ff56646a2b8c2d64bf08fe, type: 3}
   width: 1
   height: 1

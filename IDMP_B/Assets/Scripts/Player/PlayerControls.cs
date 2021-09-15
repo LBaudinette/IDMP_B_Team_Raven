@@ -10,6 +10,9 @@ public class PlayerControls : MonoBehaviour
     public GridBuilder gb;
     float cellSize;
 
+    //UserInterface
+    [SerializeField] private DialogueUI dialogueUI;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +26,10 @@ public class PlayerControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (dialogueUI.IsOpen)
+        {
+            return;
+        }
         CheckMousePos();
     }
 

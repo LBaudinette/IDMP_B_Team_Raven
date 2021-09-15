@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b08c083090f2814b9bf2b8ca72f61f8, type: 3}
+  m_Name: DialogueOne
+  m_EditorClassIdentifier: 
+  dialogue:
+  - "At Pyrrhus Co., your time is important to us. To ensure that you don\u2019t
+    waste any of your time, Dimensional Harvest employees are mandated to complete
+    their duties within a time limit. "
+  - 'We understand that unexpected issues can always arise - so if you exceed the
+    time limit, no problem! '
+  - "Your employee uniform is equipped with a Pyrrhus Co. Local Temporal Rewind Device
+    that will undo your actions, while still allowing you to keep the memories \u2013
+    allowing you to try again with knowledge of what the most effective solution
+    is."
+  - "As such, Pyrrhus Co. has been granted international subsidies to solve this
+    issue. That\u2019s where you come in!"
+  responses: []
