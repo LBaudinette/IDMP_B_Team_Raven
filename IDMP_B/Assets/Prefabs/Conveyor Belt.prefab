@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2248357752411694019}
   m_Layer: 0
   m_Name: Conveyor Belt
-  m_TagString: Untagged
+  m_TagString: Conveyor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13f5b367951f614439dd11d7527a46fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  output: 0
 --- !u!114 &2248357752411694019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,6 +57,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf7e93d075bb3ab4293220d3bbc22fdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  horizontal: {fileID: 0}
+  LShape: {fileID: 0}
+  threeWay: {fileID: 0}
+  fourWay: {fileID: 0}
 --- !u!1 &6633731411088018222
 GameObject:
   m_ObjectHideFlags: 0

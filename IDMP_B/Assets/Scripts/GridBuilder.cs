@@ -279,7 +279,7 @@ public class GridBuilder : MonoBehaviour {
 
     public void CreateBuilding(Vector3 spawnPos, Quaternion rotation, BuildingSO buildingSO, Vector3 originIndices) {
         Debug.Log("CREATE");
-        GameObject buildingObj = Instantiate(currentBuilding.buildingPrefab, spawnPos, rotation);
+        GameObject buildingObj = Instantiate(currentBuilding.buildingPrefab, spawnPos, rotation, );
 
         List<Vector3> occupiedGridCells = currentBuilding.GetGridPositionList(originIndices, currentDirection);
 
@@ -295,7 +295,7 @@ public class GridBuilder : MonoBehaviour {
         //switch statement that accesses the output value and changes it depending if it is placed on a node
 
 
-        script.InitValues(buildingSO, new Vector3Int((int)spawnPos.x, 0 ,(int)spawnPos.z), currentDirection);
+        script.InitValues(buildingSO, new Vector3((int)spawnPos.x, 0 ,(int)spawnPos.z), currentDirection, grid);
 
     }
 
