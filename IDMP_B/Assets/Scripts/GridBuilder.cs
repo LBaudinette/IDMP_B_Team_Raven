@@ -66,6 +66,7 @@ public class GridBuilder : MonoBehaviour {
 
         }
         else if (Input.GetKeyDown("/")) {
+            Destroy(currentGhostBuilding);
             currentMode = BuildingMode.Idle;
             UtilsClass.CreateWorldTextPopup(currentMode.ToString(), mousePos, 2);
 
@@ -134,11 +135,18 @@ public class GridBuilder : MonoBehaviour {
 
 
         }
+        else if (Input.GetKeyDown("6")) { //staging ground 
+            CreateNewGhostBuilding(buildingList[5], mousePos);
 
-        if (Input.GetMouseButtonDown(1)) {
-            currentDirection = BuildingSO.GetNextDirection(currentDirection);
-            UtilsClass.CreateWorldTextPopup(currentDirection.ToString(), mousePos, 2);
+            UtilsClass.CreateWorldTextPopup(currentBuilding.name, mousePos, 2);
+
+
         }
+
+        //if (Input.GetMouseButtonDown(1)) {
+        //    currentDirection = BuildingSO.GetNextDirection(currentDirection);
+        //    UtilsClass.CreateWorldTextPopup(currentDirection.ToString(), mousePos, 2);
+        //}
         #endregion
 
         bool canBuild = true;
@@ -286,21 +294,18 @@ public class GridBuilder : MonoBehaviour {
         foreach (Vector3 gridPos in occupiedGridCells) {
 
             //Set the building occupying the grid objects to the one we just instantiated
-            grid.GetGridObject((int)gridPos.x, (int)gridPos.z).secondaryBuilding = buildingObj;
+            grid.GetGridObject((int)gridPos.x, (int)gridPos.z).primaryBuilding = buildingObj;
            //Debug.Log($" Grid Position: X: {grid.GetGridObject((int)gridPos.x, (int)gridPos.z).x} + Z: {grid.GetGridObject((int)gridPos.x, (int)gridPos.z).z}");
         }
+
         BuildingScript script;
         if (currentBuilding.buildingPrefab.CompareTag("Conveyor")) {
             script = buildingObj.GetComponent<ConveyorScript>();
         }
         else {
             script = buildingObj.GetComponent<BuildingScript>();
-
         }
-
-        //switch statement that accesses the output value and changes it depending if it is placed on a node
-
-
+        script.enabled = true;
         script.InitValues(buildingSO, new Vector3((int)spawnPos.x, 0 ,(int)spawnPos.z), currentDirection, grid);
 
     }

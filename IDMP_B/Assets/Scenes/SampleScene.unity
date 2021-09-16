@@ -254,6 +254,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ea3d7f17b2bddbf41937838427b1289a, type: 2}
   - {fileID: 11400000, guid: dc6f0a74712fe4e4cb85b2d297aa1b77, type: 2}
   - {fileID: 11400000, guid: 438e4f49c493c374b9577315a19219e1, type: 2}
+  - {fileID: 11400000, guid: 08a835eff746e474ca45a189ff507158, type: 2}
   resourceList:
   - {fileID: 11400000, guid: 7c837b40255b3944281e7cb70a25fda7, type: 2}
   resourcePosList:
