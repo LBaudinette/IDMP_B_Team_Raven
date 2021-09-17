@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f3428a6003af94dab85c6419b83d9e, type: 3}
   m_Name: StagingGroundSO
   m_EditorClassIdentifier: 
-  buildingName: Staging Ground
-  buildingPrefab: {fileID: 487315424237674580, guid: 494e74fc4cd24b945a186fe48c1060bd, type: 3}
+  buildingName: StagingGround
+  buildingPrefab: {fileID: 7603924275188417358, guid: e8ca5c57a57c0b54d98162fa440c138f, type: 3}
   width: 1
   height: 1
