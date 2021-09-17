@@ -28,6 +28,7 @@ public class GridBuilder : MonoBehaviour {
 
     private Coroutine coroutine;
 
+    public BuildingSO stagingGroundSO;
     private enum BuildingMode {
         Build, Destroy, Idle
     }
@@ -39,11 +40,33 @@ public class GridBuilder : MonoBehaviour {
 
         grid.OnGridValueChanged += Grid_OnGridValueChanged;
 
+        CreateStagingGround(new Vector3((int)0, 0, (int)7));
+
         //Initialise resource nodes
         foreach(Vector3 indices in resourcePosList) {
             CreateSecondary(indices, resourceList[0]);
         }
 
+    }
+
+    public void BuildNode(Vector3 indices, BuildingSO nodeType) {
+        CreateSecondary(indices, nodeType);
+    }
+
+    public GameObject CreateStagingGround(Vector3 gridIndices) {
+        Vector3 spawnPos = grid.GetWorldPos((int)gridIndices.x, (int)gridIndices.z) * cellSize;
+
+        GameObject buildingObj = Instantiate(stagingGroundSO.buildingPrefab,
+            spawnPos,
+            Quaternion.Euler(new Vector3(0.0f, 0.0f, 0.0f)), gameObject.transform);
+        StagingGroundPipe script = buildingObj.GetComponent<StagingGroundPipe>();
+
+        buildingObj.GetComponent<StagingGroundPipe>().enabled = true;
+        grid.GetGridObject((int)gridIndices.x, (int)gridIndices.z).primaryBuilding = buildingObj;
+
+        script.InitValues(stagingGroundSO, new Vector3((int)spawnPos.x, 0, (int)spawnPos.z), currentDirection, grid);
+
+        return buildingObj;
     }
 
     private void Grid_OnGridValueChanged() {
@@ -196,7 +219,8 @@ public class GridBuilder : MonoBehaviour {
             if (gridObject.secondaryBuilding!= null) {
 
                 //Check if there is a resource node and there is no other buildings on top of ot
-                if (gridObject.secondaryBuilding.CompareTag("Iron Node") && 
+                if ((gridObject.secondaryBuilding.CompareTag("Iron Node") || 
+                    gridObject.secondaryBuilding.CompareTag("Mineral Node")) && 
                     gridObject.primaryBuilding == null) {
                     canBuild = true;
                 }
@@ -337,7 +361,7 @@ public class GridBuilder : MonoBehaviour {
 
 
     //Takes a Vector3 containing grid indices and the type of building to make
-    public void CreateSecondary(Vector3 gridIndices, BuildingSO buildingSO) {
+    public GameObject CreateSecondary(Vector3 gridIndices, BuildingSO buildingSO) {
         Vector3 spawnPos = grid.GetWorldPos((int)gridIndices.x, (int)gridIndices.z) * cellSize;
 
         GameObject buildingObj = Instantiate(
@@ -347,6 +371,7 @@ public class GridBuilder : MonoBehaviour {
 
         grid.GetGridObject((int)gridIndices.x, (int)gridIndices.z).secondaryBuilding = buildingObj;
 
+        return buildingObj;
     }
 }
 

@@ -19,10 +19,12 @@ public class BuildingScript : MonoBehaviour {
         parentGrid = grid;
         output = new List<LevelManager.ResourceType>();
 
-        if (parentGrid.GetGridObject((int)originPos.x, (int)originPos.z).secondaryBuilding?.CompareTag("Iron Node") ?? false) {
+        if (parentGrid.GetGridObject(
+            (int)originPos.x, (int)originPos.z).secondaryBuilding?.CompareTag("Iron Node") ?? false) {
             output.Add(LevelManager.ResourceType.Iron);
-            output.Add(LevelManager.ResourceType.Copper);
-            Debug.Log("OUTPUT ADDED");
+        } else if(parentGrid.GetGridObject(
+            (int)originPos.x, (int)originPos.z).secondaryBuilding?.CompareTag("Mineral Node") ?? false) {
+            output.Add(LevelManager.ResourceType.Mineral);
         }
     }
 

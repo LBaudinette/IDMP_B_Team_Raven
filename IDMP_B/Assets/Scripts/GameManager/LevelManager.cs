@@ -21,7 +21,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private DialogueObject testDialogueObject;
 
     public enum ResourceType {
-        Iron, Copper
+        Iron, Mineral
     }
 
     // Start is called before the first frame update
@@ -70,7 +70,7 @@ public class LevelManager : MonoBehaviour
             if (r == ResourceType.Iron)
             {
                 r1++;
-            } else if (r == ResourceType.Copper)
+            } else if (r == ResourceType.Mineral)
             {
                 r2++;
             }
