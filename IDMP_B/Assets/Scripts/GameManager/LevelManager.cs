@@ -8,6 +8,10 @@ public class LevelManager : MonoBehaviour
     public int actionLimit;
     public Vector3 startPos;
     GameManager gm;
+    StagingGroundPipe sg;
+
+    public int neededR1;
+    public int neededR2;
 
     public enum ResourceType {
         Iron, Copper
@@ -17,6 +21,7 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        sg = GameObject.FindGameObjectWithTag("Staging Ground").GetComponent<StagingGroundPipe>();
     }
 
     // Update is called once per frame
@@ -45,9 +50,27 @@ public class LevelManager : MonoBehaviour
     {
         // check for staging ground for level completion via belt output enum
         // stagingGround.output == whatever
+        List<ResourceType> resourceList = sg.GetCurrentResources();
 
-        // if complete, call
-        // OnLevelCompleted();
+        int r1 = 0;
+        int r2 = 0;
+
+        foreach (ResourceType r in resourceList)
+        {
+            if (r == ResourceType.Iron)
+            {
+                r1++;
+            } else if (r == ResourceType.Copper)
+            {
+                r2++;
+            }
+        }
+
+        if (r1 >= neededR1 && r2 >= neededR2)
+        {
+            OnLevelCompleted();
+        }
+
     }
 
     void OnLevelCompleted()

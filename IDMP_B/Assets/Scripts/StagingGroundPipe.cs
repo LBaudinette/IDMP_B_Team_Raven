@@ -18,7 +18,8 @@ public class StagingGroundPipe : BuildingScript
         currentResources = CheckAdjacent(new List<int>());
     }
 
-
-   
-
+    public List<LevelManager.ResourceType> GetCurrentResources()
+    {
+        return currentResources;
+    }
 }
