@@ -4,7 +4,7 @@ using UnityEngine;
 using CodeMonkey.Utils;
 
 public class GridBuilder : MonoBehaviour {
-    private GridXZ<GridObject> grid;
+    public GridXZ<GridObject> grid;
     [SerializeField] private List<BuildingSO> buildingList;     //Holds buildings that the player can create
     [SerializeField] private List<BuildingSO> resourceList;     //Holds resource nodes
     [SerializeField] private List<Vector3> resourcePosList;     //Holds resource positions
@@ -66,6 +66,7 @@ public class GridBuilder : MonoBehaviour {
 
         }
         else if (Input.GetKeyDown("/")) {
+            Destroy(currentGhostBuilding);
             currentMode = BuildingMode.Idle;
             UtilsClass.CreateWorldTextPopup(currentMode.ToString(), mousePos, 2);
 
@@ -134,11 +135,18 @@ public class GridBuilder : MonoBehaviour {
 
 
         }
+        else if (Input.GetKeyDown("6")) { //staging ground 
+            CreateNewGhostBuilding(buildingList[5], mousePos);
 
-        if (Input.GetMouseButtonDown(1)) {
-            currentDirection = BuildingSO.GetNextDirection(currentDirection);
-            UtilsClass.CreateWorldTextPopup(currentDirection.ToString(), mousePos, 2);
+            UtilsClass.CreateWorldTextPopup(currentBuilding.name, mousePos, 2);
+
+
         }
+
+        //if (Input.GetMouseButtonDown(1)) {
+        //    currentDirection = BuildingSO.GetNextDirection(currentDirection);
+        //    UtilsClass.CreateWorldTextPopup(currentDirection.ToString(), mousePos, 2);
+        //}
         #endregion
 
         bool canBuild = true;
@@ -185,11 +193,11 @@ public class GridBuilder : MonoBehaviour {
             canBuild = false;
 
             //Check the node that it is being built on
-            if (gridObject.GetSecBuildingObject() != null) {
+            if (gridObject.secondaryBuilding!= null) {
 
                 //Check if there is a resource node and there is no other buildings on top of ot
-                if (gridObject.GetSecBuildingObject().CompareTag("ResourceNode") && 
-                    gridObject.GetBuildingObject() == null) {
+                if (gridObject.secondaryBuilding.CompareTag("Iron Node") && 
+                    gridObject.primaryBuilding == null) {
                     canBuild = true;
                 }
             }
@@ -239,7 +247,7 @@ public class GridBuilder : MonoBehaviour {
 
     private void DestroyMode(Vector3 mousePos) {
         if (Input.GetMouseButton(0)) {
-            GameObject building = grid.GetGridObject(mousePos).GetBuildingObject();
+            GameObject building = grid.GetGridObject(mousePos).primaryBuilding;
             if (building != null) {
                 BuildingScript buildingScript = building.GetComponent<BuildingScript>();
                 List<Vector3> gridCells = buildingScript.GetGridPositionList();
@@ -279,22 +287,25 @@ public class GridBuilder : MonoBehaviour {
 
     public void CreateBuilding(Vector3 spawnPos, Quaternion rotation, BuildingSO buildingSO, Vector3 originIndices) {
         Debug.Log("CREATE");
-        GameObject buildingObj = Instantiate(currentBuilding.buildingPrefab, spawnPos, rotation, gameObject.transform);
+        GameObject buildingObj = Instantiate(currentBuilding.buildingPrefab, spawnPos, rotation, gameObject.transform );
 
         List<Vector3> occupiedGridCells = currentBuilding.GetGridPositionList(originIndices, currentDirection);
 
         foreach (Vector3 gridPos in occupiedGridCells) {
 
             //Set the building occupying the grid objects to the one we just instantiated
-            grid.GetGridObject((int)gridPos.x, (int)gridPos.z).setBuilding(buildingObj);
+            grid.GetGridObject((int)gridPos.x, (int)gridPos.z).primaryBuilding = buildingObj;
            //Debug.Log($" Grid Position: X: {grid.GetGridObject((int)gridPos.x, (int)gridPos.z).x} + Z: {grid.GetGridObject((int)gridPos.x, (int)gridPos.z).z}");
         }
 
-        BuildingScript script = buildingObj.GetComponent<BuildingScript>();
-
-        //switch statement that accesses the output value and changes it depending if it is placed on a node
-
-
+        BuildingScript script;
+        if (currentBuilding.buildingPrefab.CompareTag("Conveyor")) {
+            script = buildingObj.GetComponent<ConveyorScript>();
+        }
+        else {
+            script = buildingObj.GetComponent<BuildingScript>();
+        }
+        script.enabled = true;
         script.InitValues(buildingSO, new Vector3((int)spawnPos.x, 0 ,(int)spawnPos.z), currentDirection, grid);
 
     }
@@ -334,7 +345,7 @@ public class GridBuilder : MonoBehaviour {
             spawnPos, 
             Quaternion.Euler(new Vector3(0.0f,0.0f,0.0f)));
 
-        grid.GetGridObject((int)gridIndices.x, (int)gridIndices.z).setSecondary(buildingObj);
+        grid.GetGridObject((int)gridIndices.x, (int)gridIndices.z).secondaryBuilding = buildingObj;
 
     }
 }
