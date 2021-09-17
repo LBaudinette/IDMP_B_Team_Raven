@@ -10,6 +10,8 @@ TagManager:
   - Conveyor
   - Iron Node
   - Staging Ground
+  - ResourceNode
+  - Mineral Node
   layers:
   - Default
   - TransparentFX
