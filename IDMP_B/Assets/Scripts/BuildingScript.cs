@@ -60,19 +60,43 @@ public class BuildingScript : MonoBehaviour {
                 continue;
             resources.AddRange(building.GetComponent<BuildingScript>().CheckAdjacent(visitedIDs));
         }
-
+        //output.Clear();
+        //output = resources;
         //Debug.Log("RECUR");
         return resources;
     }
 
     protected IEnumerable<GameObject> getAdjacentObjects() {
+        List<GameObject> adjacentBuildings = new List<GameObject>();
+        GridObject up = parentGrid.GetGridObject((int)originPos.x, (int)originPos.z + 1);
+        GridObject right = parentGrid.GetGridObject((int)originPos.x + 1, (int)originPos.z);
+        GridObject down = parentGrid.GetGridObject((int)originPos.x, (int)originPos.z - 1);
+        GridObject left = parentGrid.GetGridObject((int)originPos.x - 1, (int)originPos.z);
+
+        if (up != default && up.primaryBuilding != null) {
+            adjacentBuildings.Add(up.primaryBuilding);
+        }
+        if (right != default && right.primaryBuilding != null) {
+            adjacentBuildings.Add(right.primaryBuilding);
+        }
+        if (down != default && down.primaryBuilding != null) {
+            adjacentBuildings.Add(down.primaryBuilding);
+
+        }
+        if (left != default && left.primaryBuilding != null) {
+            adjacentBuildings.Add(left.primaryBuilding);
+
+        }
+
+        return adjacentBuildings;
         //Create list of adjacent buildings. Removes null at end
-        return new List<GameObject> {
-            parentGrid.GetGridObject((int)originPos.x, (int)originPos.z + 1).primaryBuilding,
-            parentGrid.GetGridObject((int)originPos.x + 1, (int)originPos.z).primaryBuilding,
-            parentGrid.GetGridObject((int)originPos.x, (int)originPos.z - 1).primaryBuilding,
-            parentGrid.GetGridObject((int)originPos.x - 1, (int)originPos.z).primaryBuilding
-        }.Where(o => o != null);
+        //return new List<GameObject> {
+        //    parentGrid.GetGridObject((int)originPos.x, (int)originPos.z + 1).primaryBuilding ?? null,
+        //    parentGrid.GetGridObject((int)originPos.x + 1, (int)originPos.z).primaryBuilding ?? null,
+        //    parentGrid.GetGridObject((int)originPos.x, (int)originPos.z - 1).primaryBuilding ?? null,
+        //    parentGrid.GetGridObject((int)originPos.x - 1, (int)originPos.z).primaryBuilding ?? null
+        //}.Where(o => o != null);
+
     }
 }
 
