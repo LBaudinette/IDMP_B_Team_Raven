@@ -6,6 +6,10 @@ TagManager:
   tags:
   - LevelManager
   - GameManager
+  - Harvester
+  - Conveyor
+  - Iron Node
+  - Staging Ground
   layers:
   - Default
   - TransparentFX

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9053003965740336425}
   - component: {fileID: 4549343136797773302}
+  - component: {fileID: 7579380893597457606}
   m_Layer: 0
   m_Name: StagingGroundsPipe
   m_TagString: Untagged
@@ -44,6 +45,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13f5b367951f614439dd11d7527a46fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  output: 
+--- !u!114 &7579380893597457606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2889603938360476467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957ced0785ff7664bb69ac45618d0a22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  output: 
+  currentResources: 
 --- !u!1001 &6543475785400812024
 PrefabInstance:
   m_ObjectHideFlags: 0

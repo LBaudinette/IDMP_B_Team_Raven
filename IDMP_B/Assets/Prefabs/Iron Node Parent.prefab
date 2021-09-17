@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -8162534957117355666}
   m_Layer: 0
   m_Name: Iron Node Parent
-  m_TagString: ResourceNode
+  m_TagString: Iron Node
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13f5b367951f614439dd11d7527a46fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  output: 0
+  output: 00000000
 --- !u!1 &6824036916762941700
 GameObject:
   m_ObjectHideFlags: 0

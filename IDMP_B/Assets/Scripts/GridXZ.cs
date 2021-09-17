@@ -43,9 +43,9 @@ public class GridXZ<TGridObject>
 
                 
 
-                debugGrid[col,row] = UtilsClass.CreateWorldText(gridArray[col, row]?.ToString(), null, GetWorldPos(col,row) + new Vector3(cellSize, 0, cellSize) * 0.5f, 5, Color.red, TextAnchor.MiddleCenter);
-                debugGrid[col, row].characterSize = 0.03f;
-                debugGrid[col, row].fontSize = 150;
+                //debugGrid[col,row] = UtilsClass.CreateWorldText(gridArray[col, row]?.ToString(), null, GetWorldPos(col,row) + new Vector3(cellSize, 0, cellSize) * 0.5f, 5, Color.red, TextAnchor.MiddleCenter);
+                //debugGrid[col, row].characterSize = 0.03f;
+                //debugGrid[col, row].fontSize = 150;
 
 
             }
