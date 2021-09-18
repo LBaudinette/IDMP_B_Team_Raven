@@ -48,9 +48,7 @@ public class PlayerControls : MonoBehaviour
             if (nodeObj != default && nodeObj.CanBuild())
             {
                 //if grid node at mouse position is adjacent to player's current position
-                float xDiff = nodePos.x - pos.x;
-                float zDiff = nodePos.z - pos.z;
-                if ((Mathf.Abs(xDiff) == 1 && zDiff == 0) || (Mathf.Abs(zDiff) == 1 && xDiff == 0))
+                if (IsPlayerAdjacent(nodePos))
                 {
                     //update player's position to adjacent grid node
                     pos.x = nodePos.x;
@@ -69,5 +67,12 @@ public class PlayerControls : MonoBehaviour
     {
         // update gameobject transform to (x * cellSize + cellSize / 2, y, z * cellSize + cellSize / 2)]
         this.gameObject.transform.position = (new Vector3(pos.x, 0, pos.z) + origin) * cellSize + new Vector3(cellSize / 2, 0, cellSize / 2);
+    }
+
+    public bool IsPlayerAdjacent(Vector3 position)
+    {
+        float xDiff = pos.x - position.x;
+        float zDiff = pos.z - position.z;
+        return (Mathf.Abs(xDiff) == 1 && zDiff == 0) || (Mathf.Abs(zDiff) == 1 && xDiff == 0);
     }
 }

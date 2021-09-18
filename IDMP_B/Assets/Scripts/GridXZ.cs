@@ -20,7 +20,7 @@ public class GridXZ<TGridObject>
 
 
     // Start is called before the first frame update
-    public GridXZ(int width, int height, float cellSize, Vector3 gridOrigin, Func<GridXZ<TGridObject>, int, int, TGridObject> createGridObject) {
+    public GridXZ(int width, int height, float cellSize, Vector3 gridOrigin, Func<GridXZ<TGridObject>, int, int, TGridObject> createGridObject, GridBuilder gb) {
         this.width = width;
         this.height = height;
         this.cellSize = cellSize;
@@ -30,12 +30,30 @@ public class GridXZ<TGridObject>
         debugGrid = new TextMesh[width, height];
 
         //Draw and populate Grid
+        List<Vector3> points = new List<Vector3>();
         for(int row = 0; row < height; row++) {
             for(int col = 0; col < width; col++) {
 
                 gridArray[col, row] = createGridObject(this,col, row);
 
+                points.Add(GetWorldPos(col, row));
+                points.Add(GetWorldPos(col, row));
+                points.Add(GetWorldPos(col, row));
+                points.Add(GetWorldPos(col, row + 1));
+                points.Add(GetWorldPos(col, row + 1));
+                points.Add(GetWorldPos(col, row + 1));
+                points.Add(GetWorldPos(col, row));
+                points.Add(GetWorldPos(col, row));
+                points.Add(GetWorldPos(col, row));
+                points.Add(GetWorldPos(col + 1, row));
+                points.Add(GetWorldPos(col + 1, row));
+                points.Add(GetWorldPos(col + 1, row));
+                points.Add(GetWorldPos(0, row));
+                points.Add(GetWorldPos(0, row));
+                points.Add(GetWorldPos(0, row));
+
                 //Draw line upwards
+
                 Debug.DrawLine(GetWorldPos(col,row), GetWorldPos(col, row + 1), Color.white, 100f);
 
                 //Draw line to right
@@ -50,6 +68,22 @@ public class GridXZ<TGridObject>
 
             }
         }
+        points.Add(GetWorldPos(0, height));
+        points.Add(GetWorldPos(0, height));
+        points.Add(GetWorldPos(0, height));
+        points.Add(GetWorldPos(width, height));
+        points.Add(GetWorldPos(width, height));
+        points.Add(GetWorldPos(width, height));
+        points.Add(GetWorldPos(width, 0));
+        points.Add(GetWorldPos(width, 0));
+        points.Add(GetWorldPos(width, 0));
+        points.Add(GetWorldPos(width, height));
+        points.Add(GetWorldPos(width, height));
+        points.Add(GetWorldPos(width, height));
+
+        gb.AddPointsToLR(points.ToArray());
+        
+
         Debug.DrawLine(GetWorldPos(0,height), GetWorldPos(width, height), Color.white, 100f);
         Debug.DrawLine(GetWorldPos(width, 0), GetWorldPos(width, height), Color.white, 100f);
 

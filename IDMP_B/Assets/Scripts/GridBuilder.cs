@@ -6,6 +6,8 @@ using CodeMonkey.Utils;
 public class GridBuilder : MonoBehaviour {
 
     private LevelManager lm;
+    private LineRenderer lr;
+    private PlayerControls player;
 
     public GridXZ<GridObject> grid;
     [SerializeField] private List<BuildingSO> buildingList;     //Holds buildings that the player can create
@@ -38,8 +40,10 @@ public class GridBuilder : MonoBehaviour {
 
     // Start is called before the first frame update
     void Awake() {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControls>();
+        lr = GetComponent<LineRenderer>();
         lm = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
-        grid = new GridXZ<GridObject>(width, height, cellSize, transform.position, (gridXZ, x, y) => new GridObject(gridXZ, x, y));
+        grid = new GridXZ<GridObject>(width, height, cellSize, transform.position, (gridXZ, x, y) => new GridObject(gridXZ, x, y), this);
         currentBuilding = buildingList[0];
 
         grid.OnGridValueChanged += Grid_OnGridValueChanged;
@@ -189,10 +193,12 @@ public class GridBuilder : MonoBehaviour {
         if (Input.GetKeyDown("h")) {
             Debug.Log($"CELL INDICES: {gridCellIndices}");
         }
-        
+
 
 
         GridObject gridObject = grid.GetGridObject(mousePos);
+
+        if (gridObject == default) return;
 
         List<Vector3> occupiedGridCells = currentBuilding.GetGridPositionList(gridCellIndices, currentDirection);
 
@@ -202,13 +208,16 @@ public class GridBuilder : MonoBehaviour {
             int y = (int)gridPos.y;
 
             if (x >= 0 && y >= 0 && x <= width - 1 && y <= height - 1
-               && grid.GetGridObject((int)gridPos.x, (int)gridPos.z).CanBuild() && gridObject != default) {
+               && grid.GetGridObject((int)gridPos.x, (int)gridPos.z).CanBuild() && gridObject != default)
+            {
                 //Can Build on this node
             }
-            else {
+            else
+            {
                 //UtilsClass.CreateWorldTextPopup("Cannot build here!", mousePos);
                 canBuild = false;
             }
+            
         }
 
         #region Special Building Checks
@@ -219,7 +228,7 @@ public class GridBuilder : MonoBehaviour {
             canBuild = false;
 
             //Check the node that it is being built on
-            if (gridObject.secondaryBuilding!= null) {
+            if (gridObject.secondaryBuilding != null) {
 
                 //Check if there is a resource node and there is no other buildings on top of ot
                 if ((gridObject.secondaryBuilding.CompareTag("Iron Node") || 
@@ -234,7 +243,7 @@ public class GridBuilder : MonoBehaviour {
 
 
         #region Building Code
-        if (canBuild) {
+        if (canBuild && player.IsPlayerAdjacent(occupiedGridCells[0])) {
             //Set the building and its components material to show that it is buildable
             currentGhostBuilding.GetComponentInChildren<MeshRenderer>().material = buildableMat;
             MeshRenderer[] childRenderers = currentGhostBuilding.GetComponentsInChildren<MeshRenderer>();
@@ -378,6 +387,12 @@ public class GridBuilder : MonoBehaviour {
         grid.GetGridObject((int)gridIndices.x, (int)gridIndices.z).secondaryBuilding = buildingObj;
 
         return buildingObj;
+    }
+
+    public void AddPointsToLR(Vector3[] points)
+    {
+        lr.positionCount = points.Length;
+        lr.SetPositions(points);
     }
 }
 
