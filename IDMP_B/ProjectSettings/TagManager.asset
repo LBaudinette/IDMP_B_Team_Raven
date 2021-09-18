@@ -10,6 +10,8 @@ TagManager:
   - Conveyor
   - Iron Node
   - Staging Ground
+  - Mineral Node
+  - Grid Builder
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
+  - GridPlane
   - 
   - 
   - 

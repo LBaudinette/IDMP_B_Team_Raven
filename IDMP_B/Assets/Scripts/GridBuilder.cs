@@ -4,6 +4,9 @@ using UnityEngine;
 using CodeMonkey.Utils;
 
 public class GridBuilder : MonoBehaviour {
+
+    private LevelManager lm;
+
     public GridXZ<GridObject> grid;
     [SerializeField] private List<BuildingSO> buildingList;     //Holds buildings that the player can create
     [SerializeField] private List<BuildingSO> resourceList;     //Holds resource nodes
@@ -34,18 +37,12 @@ public class GridBuilder : MonoBehaviour {
     }
 
     // Start is called before the first frame update
-    void Start() {
+    void Awake() {
+        lm = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
         grid = new GridXZ<GridObject>(width, height, cellSize, transform.position, (gridXZ, x, y) => new GridObject(gridXZ, x, y));
         currentBuilding = buildingList[0];
 
         grid.OnGridValueChanged += Grid_OnGridValueChanged;
-
-        CreateStagingGround(new Vector3((int)0, 0, (int)7));
-
-        //Initialise resource nodes
-        foreach(Vector3 indices in resourcePosList) {
-            CreateSecondary(indices, resourceList[0]);
-        }
 
     }
 
@@ -54,7 +51,13 @@ public class GridBuilder : MonoBehaviour {
     }
 
     public GameObject CreateStagingGround(Vector3 gridIndices) {
+        Debug.Log(gridIndices);
+        if (grid == null)
+        {
+            Debug.Log("grid == null");
+        }
         Vector3 spawnPos = grid.GetWorldPos((int)gridIndices.x, (int)gridIndices.z) * cellSize;
+        Debug.Log(spawnPos);
 
         GameObject buildingObj = Instantiate(stagingGroundSO.buildingPrefab,
             spawnPos,
@@ -331,6 +334,9 @@ public class GridBuilder : MonoBehaviour {
         }
         script.enabled = true;
         script.InitValues(buildingSO, new Vector3((int)spawnPos.x, 0 ,(int)spawnPos.z), currentDirection, grid);
+
+        // building has been created, tell level manager that a new action has been performed
+        lm.OnNewAction();
 
     }
 

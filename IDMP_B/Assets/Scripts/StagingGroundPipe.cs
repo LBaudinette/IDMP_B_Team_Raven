@@ -14,7 +14,11 @@ public class StagingGroundPipe : BuildingScript
     // Update is called once per frame
     void Update()
     {
-        currentResources.Clear();
+        
+    }
+
+    public void UpdateResources()
+    {
         currentResources = CheckAdjacent(new List<int>());
     }
 
