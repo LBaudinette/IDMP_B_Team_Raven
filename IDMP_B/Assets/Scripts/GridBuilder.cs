@@ -83,7 +83,9 @@ public class GridBuilder : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         Vector3 mousePos = grid.getMouseWorldPos();
-        if (Input.GetKeyDown(",") && currentMode != BuildingMode.Build) {
+        // if (Input.GetKeyDown(",") && currentMode != BuildingMode.Build) {
+        if (Input.GetMouseButtonDown(1) && currentMode != BuildingMode.Build)
+        {
             StartBuildMode();
             currentMode = BuildingMode.Build;
             UtilsClass.CreateWorldTextPopup(currentMode.ToString(), mousePos, 2);
@@ -199,7 +201,7 @@ public class GridBuilder : MonoBehaviour {
         GridObject gridObject = grid.GetGridObject(mousePos);
 
         if (gridObject == default) return;
-
+        
         List<Vector3> occupiedGridCells = currentBuilding.GetGridPositionList(gridCellIndices, currentDirection);
 
         //Check if we can build in the space that we click on
@@ -220,26 +222,56 @@ public class GridBuilder : MonoBehaviour {
             
         }
 
-        #region Special Building Checks
-        //If it is a building that can only be built on certain nodes, check if it is on a node
-        //Ideally buildings like harvesters should be 1x1
-        if (currentBuilding.buildingPrefab.CompareTag("Harvester")) {
-            //Initially set to false as it can only be built on certain nodes
-            canBuild = false;
-
-            //Check the node that it is being built on
-            if (gridObject.secondaryBuilding != null) {
-
-                //Check if there is a resource node and there is no other buildings on top of ot
-                if ((gridObject.secondaryBuilding.CompareTag("Iron Node") || 
-                    gridObject.secondaryBuilding.CompareTag("Mineral Node")) && 
-                    gridObject.primaryBuilding == null) {
+        if (gridObject.primaryBuilding == null)
+        {
+            if (currentBuilding.buildingPrefab.CompareTag("Harvester"))
+            {
+                if (gridObject.secondaryBuilding == null)
+                {
+                    canBuild = false;
+                    CreateNewGhostBuilding(buildingList[1], mousePos);
+                } else
+                {
                     canBuild = true;
                 }
             }
-            
+            else
+            {
+                if (gridObject.secondaryBuilding != null)
+                {
+                    if (gridObject.secondaryBuilding.CompareTag("Iron Node") ||
+                    gridObject.secondaryBuilding.CompareTag("Mineral Node"))
+                    {
+                        CreateNewGhostBuilding(buildingList[0], mousePos);
+                    }
+
+                }
+            }
         }
-        #endregion
+
+        /*#region Special Building Checks
+        //If it is a building that can only be built on certain nodes, check if it is on a node
+        //Ideally buildings like harvesters should be 1x1
+        if (currentBuilding.buildingPrefab.CompareTag("Harvester"))
+        {
+            //Initially set to false as it can only be built on certain nodes
+            
+
+            //Check the node that it is being built on
+            if (gridObject.secondaryBuilding != null)
+            {
+
+                //Check if there is a resource node and there is no other buildings on top of ot
+                if ((gridObject.secondaryBuilding.CompareTag("Iron Node") ||
+                    gridObject.secondaryBuilding.CompareTag("Mineral Node")) &&
+                    gridObject.primaryBuilding == null)
+                {
+                    canBuild = true;
+                }
+            }
+
+        }
+        #endregion*/
 
 
         #region Building Code
@@ -252,17 +284,19 @@ public class GridBuilder : MonoBehaviour {
             }
 
 
-            if (Input.GetMouseButtonDown(0)) {
+            if (Input.GetMouseButtonUp(1)) {
                 CreateBuilding(
                         buildingSpawnPos, Quaternion.Euler(0, BuildingSO.GetDirectionAngle(currentDirection), 0), currentBuilding, gridCellIndices);
+                Destroy(currentGhostBuilding);
+                currentMode = BuildingMode.Idle;
             }
 
         }
         else {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonUp(1))
                 UtilsClass.CreateWorldTextPopup("Cannot build here!", mousePos);
 
-            //Set the building and its components material to show that it is buildable
+            //Set the building and its components material to show that it is not buildable
             currentGhostBuilding.GetComponentInChildren<MeshRenderer>().material = notBuildableMat;
             MeshRenderer[] childRenderers = currentGhostBuilding.GetComponentsInChildren<MeshRenderer>();
             foreach (MeshRenderer currentRenderer in childRenderers) {
