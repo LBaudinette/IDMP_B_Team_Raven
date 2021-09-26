@@ -20,6 +20,9 @@ public class LevelManager : MonoBehaviour
     public List<Vector3> mineralPosList;
     private List<List<Vector3>> nodePosList;
 
+    public BuildingSO rockSO;
+    public List<Vector3> obstaclePosList;
+
     public int ironNeeded;
     public int mineralNeeded;
 
@@ -65,7 +68,7 @@ public class LevelManager : MonoBehaviour
 
     void PlaceNodes()
     {
-
+        // iterate through resource node positions to place resources
         for (int i = 0; i < buildingSOs.Count; i++)
         {
             for (int j = 0; j < nodePosList[i].Count; j++)
@@ -74,6 +77,12 @@ public class LevelManager : MonoBehaviour
                 gb.BuildNode(nodePosList[i][j], buildingSOs[i]);
             }
         }
+
+        /*// iterate through rock positions to place rock obstacles
+        foreach (Vector3 v in obstaclePosList)
+        {
+            gb.BuildPrimary(v, rockSO);
+        }*/
     }
 
     public void OnNewAction()

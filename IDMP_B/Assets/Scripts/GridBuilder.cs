@@ -54,6 +54,11 @@ public class GridBuilder : MonoBehaviour {
         CreateSecondary(indices, nodeType);
     }
 
+    public void BuildPrimary(Vector3 indices, BuildingSO nodeType)
+    {
+        CreatePrimary(indices, nodeType);
+    }
+
     public GameObject CreateStagingGround(Vector3 gridIndices) {
         Debug.Log(gridIndices);
         if (grid == null)
@@ -421,6 +426,18 @@ public class GridBuilder : MonoBehaviour {
         grid.GetGridObject((int)gridIndices.x, (int)gridIndices.z).secondaryBuilding = buildingObj;
 
         return buildingObj;
+    }
+
+    public void CreatePrimary(Vector3 gridIndices, BuildingSO buildingSO)
+    {
+        Vector3 spawnPos = grid.GetWorldPos((int)gridIndices.x, (int)gridIndices.z) * cellSize;
+
+        GameObject buildingObj = Instantiate(
+            buildingSO.buildingPrefab,
+            spawnPos,
+            Quaternion.Euler(new Vector3(0.0f, 0.0f, 0.0f)));
+
+        grid.GetGridObject((int)gridIndices.x, (int)gridIndices.z).primaryBuilding = buildingObj;
     }
 
     public void AddPointsToLR(Vector3[] points)
