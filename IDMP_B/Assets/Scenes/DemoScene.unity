@@ -163,7 +163,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 382002302}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -213,7 +213,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 382002302}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.14, y: -0.6, z: 4.79}
+  m_LocalPosition: {x: 8.14, y: 0, z: 4.79}
   m_LocalScale: {x: 6.727051, y: 1, z: 5.835581}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1000,6 +1000,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
+      propertyPath: rockSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 43b2d84fa170d2644aec363d44689657, type: 2}
+    - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: neededR1
       value: 1
       objectReference: {fileID: 0}
@@ -1056,6 +1060,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
+      propertyPath: obstaclePosList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: ironPosList.Array.data[0].x
       value: 2
       objectReference: {fileID: 0}
@@ -1082,6 +1090,14 @@ PrefabInstance:
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: mineralPosList.Array.data[1].z
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
+      propertyPath: obstaclePosList.Array.data[0].x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
+      propertyPath: obstaclePosList.Array.data[0].z
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3194009059125558039, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: m_RootOrder

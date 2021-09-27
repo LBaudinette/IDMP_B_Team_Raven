@@ -107,8 +107,7 @@ public class GridBuilder : MonoBehaviour {
             currentMode = BuildingMode.Idle;
             UtilsClass.CreateWorldTextPopup(currentMode.ToString(), mousePos, 2);
 
-        } 
-
+        }
 
         switch (currentMode) {
             case BuildingMode.Build:
@@ -298,14 +297,19 @@ public class GridBuilder : MonoBehaviour {
 
         }
         else {
-            if (Input.GetMouseButtonUp(1))
-                UtilsClass.CreateWorldTextPopup("Cannot build here!", mousePos);
-
             //Set the building and its components material to show that it is not buildable
             currentGhostBuilding.GetComponentInChildren<MeshRenderer>().material = notBuildableMat;
             MeshRenderer[] childRenderers = currentGhostBuilding.GetComponentsInChildren<MeshRenderer>();
             foreach (MeshRenderer currentRenderer in childRenderers) {
                 currentRenderer.material = notBuildableMat;
+            }
+
+            // if player tries to build here, delete ghost building
+            if (Input.GetMouseButtonUp(1))
+            {
+                UtilsClass.CreateWorldTextPopup("Cannot build here!", mousePos);
+                Destroy(currentGhostBuilding);
+                currentMode = BuildingMode.Idle;
             }
 
         }

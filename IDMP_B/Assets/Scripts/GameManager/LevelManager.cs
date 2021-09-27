@@ -5,7 +5,6 @@ using TMPro;
 
 public class LevelManager : MonoBehaviour
 {
-
     public int actionCount;
     public int actionLimit;
     public Vector3 startPos;
@@ -78,11 +77,11 @@ public class LevelManager : MonoBehaviour
             }
         }
 
-        /*// iterate through rock positions to place rock obstacles
+        // iterate through rock positions to place rock obstacles
         foreach (Vector3 v in obstaclePosList)
         {
             gb.BuildPrimary(v, rockSO);
-        }*/
+        }
     }
 
     public void OnNewAction()
