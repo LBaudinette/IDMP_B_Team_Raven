@@ -19,8 +19,10 @@ public class LevelManager : MonoBehaviour
     public List<Vector3> mineralPosList;
     private List<List<Vector3>> nodePosList;
 
-    public BuildingSO rockSO;
-    public List<Vector3> obstaclePosList;
+    public List<BuildingSO> rockSOs;
+    public List<Vector3> rock1PosList;
+    public List<Vector3> rock2PosList;
+    public List<Vector3> rock3PosList;
 
     public int ironNeeded;
     public int mineralNeeded;
@@ -78,9 +80,17 @@ public class LevelManager : MonoBehaviour
         }
 
         // iterate through rock positions to place rock obstacles
-        foreach (Vector3 v in obstaclePosList)
+        foreach (Vector3 v in rock1PosList)
         {
-            gb.BuildPrimary(v, rockSO);
+            gb.BuildPrimary(v, rockSOs[0]);
+        }
+        foreach (Vector3 v in rock2PosList)
+        {
+            gb.BuildPrimary(v, rockSOs[1]);
+        }
+        foreach (Vector3 v in rock3PosList)
+        {
+            gb.BuildPrimary(v, rockSOs[2]);
         }
     }
 
