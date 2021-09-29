@@ -23,6 +23,7 @@ public class ConveyorScript : BuildingScript
     // Start is called before the first frame update
     void Start()
     {
+        currentRotation = LShape;
         //buildingScript = GetComponent<BuildingScript>();
         //parentGrid = GameObject.FindWithTag("Grid").GetComponent<GridBuilder>() ;
         //if(parentGrid == null) {
@@ -57,9 +58,6 @@ public class ConveyorScript : BuildingScript
         GridObject down = parentGrid.GetGridObject((int)originPos.x, (int)originPos.z - 1);
         GridObject left = parentGrid.GetGridObject((int)originPos.x - 1, (int)originPos.z);
 
-        //if(top has primary building)
-        //flag top
-        //flag directions
 
         //Check if adjacent cells have a primary building to attach to
         isTop = up.hasPrimary();
@@ -70,49 +68,60 @@ public class ConveyorScript : BuildingScript
         //Cross conveyor
         if (isBottom && isTop && isLeft && isRight) {
             fourWay.SetActive(true);
+            currentRotation = fourWay;
         }
         else if (isTop && isLeft && isRight) {
             threeWay.SetActive(true);
+            currentRotation = threeWay;
         }
         else if (isBottom && isLeft && isRight) { //Three directional conveyors
             threeWay.SetActive(true);
             threeWay.transform.rotation = Quaternion.Euler(transform.rotation.x, 180, transform.rotation.y);
+            currentRotation = threeWay;
         }
         else if (isTop && isLeft && isBottom) {
             threeWay.SetActive(true);
             threeWay.transform.rotation = Quaternion.Euler(transform.rotation.x, 270, transform.rotation.y);
+            currentRotation = threeWay;
         }
         else if (isTop && isRight && isBottom) {
             threeWay.SetActive(true);
             threeWay.transform.rotation = Quaternion.Euler(transform.rotation.x, 90, transform.rotation.y);
+            currentRotation = threeWay;
         }
         else if (isTop && isLeft) {//L shaped conveyors
             LShape.SetActive(true);
+            currentRotation = LShape;
         } 
         else if(isTop && isRight) {
             LShape.SetActive(true);
             LShape.transform.rotation = Quaternion.Euler(transform.rotation.x, 90, transform.rotation.y);
+            currentRotation = LShape;
         }
         else if (isBottom && isRight) {
             LShape.SetActive(true);
             LShape.transform.rotation = Quaternion.Euler(transform.rotation.x, 180, transform.rotation.y);
+            currentRotation = LShape;
         }
         else if (isBottom && isLeft) {
             LShape.SetActive(true);
             LShape.transform.rotation = Quaternion.Euler(transform.rotation.x, 270, transform.rotation.y);
-        } 
+            currentRotation = LShape;
+        }
         else if(isBottom && isTop) {
             horizontal.SetActive(true);
-        } 
+            currentRotation = horizontal;
+        }
         else if(isLeft && isRight) {
             horizontal.SetActive(true);
             horizontal.transform.rotation = Quaternion.Euler(transform.rotation.x, 90, transform.rotation.y);
+            currentRotation = horizontal;
         }
 
 
     }
 
-    //A recursive
+   
     public void updateOutput() {
         //List<>
         //Debug.Log("NAME: " + parentGrid.GetGridObject(1,1).CanBuild());

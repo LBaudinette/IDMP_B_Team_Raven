@@ -233,7 +233,7 @@ public class GridBuilder : MonoBehaviour {
         #region Building Code
         if (canBuild) {
             //Set the building and its components material to show that it is buildable
-            currentGhostBuilding.GetComponentInChildren<MeshRenderer>().material = buildableMat;
+            //currentGhostBuilding.GetComponentInChildren<MeshRenderer>().material = buildableMat;
             MeshRenderer[] childRenderers = currentGhostBuilding.GetComponentsInChildren<MeshRenderer>();
             foreach(MeshRenderer currentRenderer in childRenderers) {
                 currentRenderer.material = buildableMat;
