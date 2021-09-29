@@ -28,6 +28,9 @@ public class GridObject {
         return primaryBuilding == null && secondaryBuilding == null;
     }
 
+    public bool hasPrimary() {
+        return primaryBuilding == null;
+    }
     public override string ToString() {
         return $"{x}, {z}";
     }

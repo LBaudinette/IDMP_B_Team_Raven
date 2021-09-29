@@ -17,6 +17,8 @@ public class ConveyorScript : BuildingScript
     public GameObject threeWay;
     public GameObject fourWay;
 
+    private GameObject currentRotation;
+
     public LinkedList<BuildingScript> adjacentBuildings; //Holds adjacent buildings
     // Start is called before the first frame update
     void Start()
@@ -43,43 +45,72 @@ public class ConveyorScript : BuildingScript
         //        Debug.Log($"ELEMENT: {element}");
         //    }
         //}
+        changeVisual();
     }
 
-    //private void checkAdjacentCells() {
-    //    //Check cells to the left, right, up, and down
-    //    //If they have the "conveyor" tag, add it to the output hashset
-    //    //Debug.Log("NAME: " + parentGrid.GetGridObject(1,1).CanBuild());
-    //    GridObject up = parentGrid.GetGridObject((int)originPos.x, (int)originPos.z + 1);
-    //    GridObject right = parentGrid.GetGridObject((int)originPos.x + 1, (int)originPos.z);
-    //    GridObject down = parentGrid.GetGridObject((int)originPos.x, (int)originPos.z - 1);
-    //    GridObject left = parentGrid.GetGridObject((int)originPos.x - 1, (int)originPos.z);
+    private void changeVisual() {
+        currentRotation.SetActive(false);
+        bool isTop, isRight, isLeft, isBottom;
+
+        GridObject up = parentGrid.GetGridObject((int)originPos.x, (int)originPos.z + 1);
+        GridObject right = parentGrid.GetGridObject((int)originPos.x + 1, (int)originPos.z);
+        GridObject down = parentGrid.GetGridObject((int)originPos.x, (int)originPos.z - 1);
+        GridObject left = parentGrid.GetGridObject((int)originPos.x - 1, (int)originPos.z);
+
+        //if(top has primary building)
+        //flag top
+        //flag directions
+
+        //Check if adjacent cells have a primary building to attach to
+        isTop = up.hasPrimary();
+        isRight = right.hasPrimary();
+        isBottom = down.hasPrimary();
+        isLeft = left.hasPrimary();
+
+        //Cross conveyor
+        if (isBottom && isTop && isLeft && isRight) {
+            fourWay.SetActive(true);
+        }
+        else if (isTop && isLeft && isRight) {
+            threeWay.SetActive(true);
+        }
+        else if (isBottom && isLeft && isRight) { //Three directional conveyors
+            threeWay.SetActive(true);
+            threeWay.transform.rotation = Quaternion.Euler(transform.rotation.x, 180, transform.rotation.y);
+        }
+        else if (isTop && isLeft && isBottom) {
+            threeWay.SetActive(true);
+            threeWay.transform.rotation = Quaternion.Euler(transform.rotation.x, 270, transform.rotation.y);
+        }
+        else if (isTop && isRight && isBottom) {
+            threeWay.SetActive(true);
+            threeWay.transform.rotation = Quaternion.Euler(transform.rotation.x, 90, transform.rotation.y);
+        }
+        else if (isTop && isLeft) {//L shaped conveyors
+            LShape.SetActive(true);
+        } 
+        else if(isTop && isRight) {
+            LShape.SetActive(true);
+            LShape.transform.rotation = Quaternion.Euler(transform.rotation.x, 90, transform.rotation.y);
+        }
+        else if (isBottom && isRight) {
+            LShape.SetActive(true);
+            LShape.transform.rotation = Quaternion.Euler(transform.rotation.x, 180, transform.rotation.y);
+        }
+        else if (isBottom && isLeft) {
+            LShape.SetActive(true);
+            LShape.transform.rotation = Quaternion.Euler(transform.rotation.x, 270, transform.rotation.y);
+        } 
+        else if(isBottom && isTop) {
+            horizontal.SetActive(true);
+        } 
+        else if(isLeft && isRight) {
+            horizontal.SetActive(true);
+            horizontal.transform.rotation = Quaternion.Euler(transform.rotation.x, 90, transform.rotation.y);
+        }
 
 
-    //    adjacentBuildings.Clear();
-
-    //    if(up != default && up.primaryBuilding != null) {
-    //        //buildingScript.output.AddRange(up.primaryBuilding.GetComponent<BuildingScript>().output);
-    //        adjacentBuildings.AddLast(up.primaryBuilding.GetComponent<BuildingScript>());
-    //    } 
-    //    if (right != default && right.primaryBuilding != null) {
-    //        //buildingScript.output.AddRange(right.primaryBuilding.GetComponent<BuildingScript>().output);
-    //        adjacentBuildings.AddLast(right.primaryBuilding.GetComponent<BuildingScript>());
-
-    //    }
-    //    if (down != default && down.primaryBuilding != null) {
-    //        //buildingScript.output.AddRange(down.primaryBuilding.GetComponent<BuildingScript>().output);
-    //        adjacentBuildings.AddLast(down.primaryBuilding.GetComponent<BuildingScript>());
-
-    //    }
-    //    if (left != default && left.primaryBuilding != null) {
-    //        //buildingScript.output.AddRange(left.primaryBuilding.GetComponent<BuildingScript>().output);
-    //        adjacentBuildings.AddLast(left.primaryBuilding.GetComponent<BuildingScript>());
-
-    //    }
-
-    //    //for each resource in adjacent conveyor
-    //    //add to current resources
-    //}
+    }
 
     //A recursive
     public void updateOutput() {
