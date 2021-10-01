@@ -12,6 +12,7 @@ public class ConveyorScript : BuildingScript
     //private GridBuilder parentGrid;
     //Gameobjects for visuals. These a rotated depending on currentDir, and changed
     //depending on how many adjacent conveyors there are
+
     public GameObject horizontal;
     public GameObject LShape;
     public GameObject threeWay;
@@ -24,23 +25,11 @@ public class ConveyorScript : BuildingScript
     void Start()
     {
         currentRotation = LShape;
-        //buildingScript = GetComponent<BuildingScript>();
-        //parentGrid = GameObject.FindWithTag("Grid").GetComponent<GridBuilder>() ;
-        //if(parentGrid == null) {
-        //    Debug.Log("NOT FOUND");
-
-        //}
-        //else {
-        //    Debug.Log("FOUND");
-        //}
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Every frame check adjacent cells for conveyor belts
-        //Change model and output of building script depending on direction
-        //checkAdjacentCells();
         //if (Input.GetButtonDown("p")) {
         //    foreach(var element in buildingScript.output) {
         //        Debug.Log($"ELEMENT: {element}");
@@ -60,10 +49,13 @@ public class ConveyorScript : BuildingScript
 
 
         //Check if adjacent cells have a primary building to attach to
-        isTop = up.hasPrimary();
-        isRight = right.hasPrimary();
-        isBottom = down.hasPrimary();
-        isLeft = left.hasPrimary();
+        
+        isTop = up != default ? up.hasPrimary() : false;
+        isRight = right != default ? right.hasPrimary() : false;
+        isBottom = down != default ? down.hasPrimary() : false ;
+        isLeft = left != default ? left.hasPrimary() : false;
+
+        //Debug.Log($"isTop: {isTop}, isRight: {isRight}, isLeft: {isLeft}, isBottom: {isBottom}");
 
         //Cross conveyor
         if (isBottom && isTop && isLeft && isRight) {
@@ -108,14 +100,18 @@ public class ConveyorScript : BuildingScript
             LShape.transform.rotation = Quaternion.Euler(transform.rotation.x, 270, transform.rotation.y);
             currentRotation = LShape;
         }
-        else if(isBottom && isTop) {
+        else if(isBottom || isTop) {
             horizontal.SetActive(true);
             currentRotation = horizontal;
         }
-        else if(isLeft && isRight) {
+        else if(isLeft || isRight) {
             horizontal.SetActive(true);
             horizontal.transform.rotation = Quaternion.Euler(transform.rotation.x, 90, transform.rotation.y);
             currentRotation = horizontal;
+        }
+        else {//if placed on a standalone square, just enable the cross
+            fourWay.SetActive(true);
+            currentRotation = fourWay;
         }
 
 
