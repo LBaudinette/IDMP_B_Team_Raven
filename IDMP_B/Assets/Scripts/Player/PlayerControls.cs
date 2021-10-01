@@ -12,9 +12,7 @@ public class PlayerControls : MonoBehaviour
 
     public bool playerMoving;
     private Animator playerAnimator;
-    [SerializeField] private float timeItTakesToMove = 1.0f;
     private Vector3 nodePos;
-    [SerializeField] private float movementSpeed = 5.0f;
 
     //UserInterface
     [SerializeField] private DialogueUI dialogueUI;
@@ -85,7 +83,6 @@ public class PlayerControls : MonoBehaviour
 
                     transform.LookAt((new Vector3(pos.x, 0, pos.z) + origin) * cellSize + new Vector3(cellSize / 2, 0, cellSize / 2), Vector3.up);
                     transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-                    //StartCoroutine(PlayerMove(nodePos));
 
                     // new action (movement) has been performed, increment action count in level manager
                     lm.OnNewAction();
@@ -112,15 +109,5 @@ public class PlayerControls : MonoBehaviour
     {
         transform.LookAt(nodePos, Vector3.up);
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-    }
-
-    private IEnumerator PlayerMove(Vector3 nodePos)
-    {
-        yield return new WaitForSeconds(timeItTakesToMove);
-        playerMoving = false;
-        //pos.x = nodePos.x;
-        //pos.z = nodePos.z;
-        playerAnimator.SetInteger("AnimationPar", 0);
-
     }
 }
