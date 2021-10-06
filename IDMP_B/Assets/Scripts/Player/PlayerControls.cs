@@ -10,12 +10,19 @@ public class PlayerControls : MonoBehaviour
     public GridBuilder gb;
     float cellSize;
 
+    public bool playerMoving;
+    private Animator playerAnimator;
+    private Vector3 nodePos;
+
     //UserInterface
     [SerializeField] private DialogueUI dialogueUI;
 
     // Start is called before the first frame update
     void Start()
     {
+        playerMoving = false;
+        playerAnimator = GetComponent<Animator>();
+        playerAnimator.SetInteger("AnimationPar", 0);
         lm = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
         origin = gb.transform.position;
         pos = lm.startPos;
@@ -30,6 +37,21 @@ public class PlayerControls : MonoBehaviour
         {
             return;
         }
+
+        if (playerMoving)
+        {
+            if (Vector3.Distance(transform.position, (new Vector3(pos.x, 0, pos.z) + origin) * cellSize + new Vector3(cellSize / 2, 0, cellSize / 2)) >= 0.05f)
+            {
+                transform.Translate(Vector3.forward * Time.deltaTime, Space.Self);
+            } else
+            {
+                playerMoving = false;
+                UpdateGridPos();
+                playerAnimator.SetInteger("AnimationPar", 0);
+            }
+            return;
+        }
+
         CheckMousePos();
     }
 
@@ -50,10 +72,17 @@ public class PlayerControls : MonoBehaviour
                 //if grid node at mouse position is adjacent to player's current position
                 if (IsPlayerAdjacent(nodePos))
                 {
+                    playerMoving = true;
+                    playerAnimator.SetInteger("AnimationPar", 1);
+
+
                     //update player's position to adjacent grid node
                     pos.x = nodePos.x;
                     pos.z = nodePos.z;
-                    UpdateGridPos();
+                    //UpdateGridPos();
+
+                    transform.LookAt((new Vector3(pos.x, 0, pos.z) + origin) * cellSize + new Vector3(cellSize / 2, 0, cellSize / 2), Vector3.up);
+                    transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
 
                     // new action (movement) has been performed, increment action count in level manager
                     lm.OnNewAction();
@@ -74,5 +103,11 @@ public class PlayerControls : MonoBehaviour
         float xDiff = pos.x - position.x;
         float zDiff = pos.z - position.z;
         return (Mathf.Abs(xDiff) == 1 && zDiff == 0) || (Mathf.Abs(zDiff) == 1 && xDiff == 0);
+    }
+
+    private void RotatePlayer()
+    {
+        transform.LookAt(nodePos, Vector3.up);
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
     }
 }

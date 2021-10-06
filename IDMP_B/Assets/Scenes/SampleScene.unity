@@ -256,7 +256,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 438e4f49c493c374b9577315a19219e1, type: 2}
   - {fileID: 11400000, guid: 08a835eff746e474ca45a189ff507158, type: 2}
   resourceList:
-  - {fileID: 11400000, guid: 7c837b40255b3944281e7cb70a25fda7, type: 2}
+  - {fileID: 11400000, guid: 878bf3d4bb3a8b947a9123bd5f98f24c, type: 2}
   resourcePosList:
   - {x: 2, y: 0, z: 7}
   - {x: 7, y: 0, z: 12}
@@ -267,6 +267,7 @@ MonoBehaviour:
   cellSize: 1
   buildableMat: {fileID: 2100000, guid: 2d190be058d6aae48b608f7cc3bc279f, type: 2}
   notBuildableMat: {fileID: 2100000, guid: 9b1ac86bab4864a49bea20c19c988c9c, type: 2}
+  stagingGroundSO: {fileID: 11400000, guid: 08a835eff746e474ca45a189ff507158, type: 2}
 --- !u!4 &575916348
 Transform:
   m_ObjectHideFlags: 0
