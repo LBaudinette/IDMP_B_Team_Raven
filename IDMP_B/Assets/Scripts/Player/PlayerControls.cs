@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerControls : MonoBehaviour
 {
     LevelManager lm;
-    Vector3 pos;
+    public Vector3 pos;
     Vector3 origin;
     public GridBuilder gb;
     float cellSize;

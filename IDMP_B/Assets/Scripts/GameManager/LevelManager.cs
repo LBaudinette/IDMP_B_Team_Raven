@@ -11,6 +11,7 @@ public class LevelManager : MonoBehaviour
     GameManager gm;
     StagingGroundPipe sg;
     GridBuilder gb;
+    PlayerControls player;
 
     public List<BuildingSO> buildingSOs;
 
@@ -41,6 +42,7 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControls>();
         // get game manager, gridbuilder
         gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         gb = GameObject.FindGameObjectWithTag("Grid Builder").GetComponent<GridBuilder>();
@@ -139,7 +141,10 @@ public class LevelManager : MonoBehaviour
 
         if (currIron >= ironNeeded && currMineral >= mineralNeeded)
         {
-            OnLevelCompleted();
+            if (player.pos.x == 0 && player.pos.y == 0)
+            {
+                StartCoroutine(waitForPlayerMovement());
+            }
         }
 
     }
@@ -153,6 +158,17 @@ public class LevelManager : MonoBehaviour
     private void UpdateActionLimitUI()
     {
         actionLimitText.text = (actionLimit - actionCount).ToString();
+    }
+
+    IEnumerator waitForPlayerMovement()
+    {
+        Debug.Log("checking for player movement");
+        while (player.playerMoving)
+        {
+            yield return null;
+        }
+        OnLevelCompleted();
+
     }
 
 }
