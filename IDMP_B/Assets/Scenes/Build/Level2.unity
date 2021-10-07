@@ -21414,7 +21414,7 @@ PrefabInstance:
       objectReference: {fileID: 1444664962}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: ironNeeded
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: actionLimit
@@ -21442,7 +21442,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: ironPosList.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: buildingSOs.Array.data[0]
@@ -21458,11 +21458,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: ironPosList.Array.data[0].x
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: ironPosList.Array.data[0].z
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: numResourcesNeeded.Array.size

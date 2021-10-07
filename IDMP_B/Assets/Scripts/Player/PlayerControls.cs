@@ -42,11 +42,12 @@ public class PlayerControls : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, (new Vector3(pos.x, 0, pos.z) + origin) * cellSize + new Vector3(cellSize / 2, 0, cellSize / 2)) >= 0.05f)
             {
-                transform.Translate(Vector3.forward * Time.deltaTime, Space.Self);
+                transform.Translate(Vector3.forward * Time.deltaTime * 2, Space.Self);
             } else
             {
                 playerMoving = false;
                 UpdateGridPos();
+                playerAnimator.speed = 1;
                 playerAnimator.SetInteger("AnimationPar", 0);
             }
             return;
@@ -67,12 +68,13 @@ public class PlayerControls : MonoBehaviour
             GridObject nodeObj = gb.GetGridObject(mousePos);
 
             // if obj is not outside grid bounds && can be built on (and thus walked on)
-            if (nodeObj != default && nodeObj.CanBuild())
+            if (nodeObj != default && !nodeObj.hasPrimary())
             {
                 //if grid node at mouse position is adjacent to player's current position
                 if (IsPlayerAdjacent(nodePos))
                 {
                     playerMoving = true;
+                    playerAnimator.speed = 2;
                     playerAnimator.SetInteger("AnimationPar", 1);
 
 
