@@ -46,26 +46,23 @@ public class BuildingScript : MonoBehaviour {
         return originPos;
     }
 
+    //This loops through all pipes connected to the staging grounds and returns any outputs
     public List<LevelManager.ResourceType> CheckAdjacent(List<int> visitedIDs) {
-
-        //newResources.AddRange(buildingScript.output);
-        //Get surrounding pipes
-        //go to first pipe found
-        //call checkAdjacent()
         List<GameObject> adjacentCells = getAdjacentObjects().ToList();
         List<LevelManager.ResourceType> resources = new List<LevelManager.ResourceType>();
         resources.AddRange(output);
         visitedIDs.Add(gameObject.GetInstanceID());
 
-        foreach (GameObject building in adjacentCells) {
-            if (visitedIDs.Contains(building.GetInstanceID()))
-                continue;
-            resources.AddRange(building.GetComponent<BuildingScript>().CheckAdjacent(visitedIDs));
-        }
-        //output.Clear();
-        //output = resources;
-        //Debug.Log("RECUR");
-        return resources;
+        if (gameObject.CompareTag("Harvester"))
+            return resources;
+        else {
+            foreach (GameObject building in adjacentCells) {
+                if (visitedIDs.Contains(building.GetInstanceID()))
+                    continue;
+                resources.AddRange(building.GetComponent<BuildingScript>().CheckAdjacent(visitedIDs));
+            }
+            return resources;
+        } 
     }
 
     protected IEnumerable<GameObject> getAdjacentObjects() {
@@ -91,14 +88,6 @@ public class BuildingScript : MonoBehaviour {
         }
 
         return adjacentBuildings;
-        //Create list of adjacent buildings. Removes null at end
-        //return new List<GameObject> {
-        //    parentGrid.GetGridObject((int)originPos.x, (int)originPos.z + 1).primaryBuilding ?? null,
-        //    parentGrid.GetGridObject((int)originPos.x + 1, (int)originPos.z).primaryBuilding ?? null,
-        //    parentGrid.GetGridObject((int)originPos.x, (int)originPos.z - 1).primaryBuilding ?? null,
-        //    parentGrid.GetGridObject((int)originPos.x - 1, (int)originPos.z).primaryBuilding ?? null
-        //}.Where(o => o != null);
-
     }
 }
 
