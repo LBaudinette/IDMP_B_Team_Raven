@@ -141,7 +141,7 @@ public class LevelManager : MonoBehaviour
 
         if (currIron >= ironNeeded && currMineral >= mineralNeeded)
         {
-            if (player.pos.x == 0 && player.pos.y == 0)
+            if (player.pos.x == 0 && player.pos.z == 0)
             {
                 StartCoroutine(waitForPlayerMovement());
             }
