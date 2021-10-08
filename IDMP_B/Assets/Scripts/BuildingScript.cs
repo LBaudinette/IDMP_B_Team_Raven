@@ -48,6 +48,7 @@ public class BuildingScript : MonoBehaviour {
 
     //This loops through all pipes connected to the staging grounds and returns any outputs
     public List<LevelManager.ResourceType> CheckAdjacent(List<int> visitedIDs) {
+        Debug.Log("Check adjacent called");
         List<GameObject> adjacentCells = getAdjacentObjects().ToList();
         List<LevelManager.ResourceType> resources = new List<LevelManager.ResourceType>();
         resources.AddRange(output);
@@ -57,7 +58,7 @@ public class BuildingScript : MonoBehaviour {
             return resources;
         else {
             foreach (GameObject building in adjacentCells) {
-                if (visitedIDs.Contains(building.GetInstanceID()))
+                if (visitedIDs.Contains(building.GetInstanceID()) || gameObject.CompareTag("Rock"))
                     continue;
                 resources.AddRange(building.GetComponent<BuildingScript>().CheckAdjacent(visitedIDs));
             }

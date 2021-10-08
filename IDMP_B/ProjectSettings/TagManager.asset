@@ -12,6 +12,7 @@ TagManager:
   - Staging Ground
   - Mineral Node
   - Grid Builder
+  - Rock
   layers:
   - Default
   - TransparentFX
