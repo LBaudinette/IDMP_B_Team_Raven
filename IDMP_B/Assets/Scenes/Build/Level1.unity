@@ -21418,7 +21418,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: actionLimit
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: mineralNeeded
@@ -21429,6 +21429,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2022074001}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
+      propertyPath: rockSOs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: stagingGroundPos.z
       value: 1
       objectReference: {fileID: 0}
@@ -21436,6 +21440,18 @@ PrefabInstance:
       propertyPath: testDialogueObject
       value: 
       objectReference: {fileID: 11400000, guid: 1e1f33de0a077394a8907f7edd73b321, type: 2}
+    - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
+      propertyPath: rockSOs.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 43b2d84fa170d2644aec363d44689657, type: 2}
+    - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
+      propertyPath: rockSOs.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 27335f1528c98854e8e85d4ddeb27a93, type: 2}
+    - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
+      propertyPath: rockSOs.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: c9ef464a7cd2c8b46949c58e2181afd2, type: 2}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: buildingSOs.Array.size
       value: 2

@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        levelIndex = SceneManager.GetActiveScene().buildIndex;
         DontDestroyOnLoad(this.gameObject);
     }
 
@@ -26,7 +27,8 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextScene()
     {
-        SceneManager.LoadScene(levelIndex++);
+        levelIndex++;
+        SceneManager.LoadScene(levelIndex);
     }
 
     public void ReloadScene()

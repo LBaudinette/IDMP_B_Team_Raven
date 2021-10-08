@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour
     public int actionCount;
     public int actionLimit;
     public Vector3 startPos;
+    public Vector3 endPos;
     GameManager gm;
     StagingGroundPipe sg;
     GridBuilder gb;
@@ -141,7 +142,7 @@ public class LevelManager : MonoBehaviour
 
         if (currIron >= ironNeeded && currMineral >= mineralNeeded)
         {
-            if (player.pos.x == 0 && player.pos.z == 0)
+            if (player.pos.x == endPos.x && player.pos.z == endPos.y)
             {
                 StartCoroutine(waitForPlayerMovement());
             }
