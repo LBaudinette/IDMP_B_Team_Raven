@@ -7,12 +7,8 @@ public class ConveyorScript : BuildingScript
 {
     //Change the gameobject depending on the rotation
 
-    //Reference to building script that tracks rotation
-    //private BuildingScript buildingScript;
-    //private GridBuilder parentGrid;
     //Gameobjects for visuals. These a rotated depending on currentDir, and changed
     //depending on how many adjacent conveyors there are
-
     public GameObject horizontal;
     public GameObject LShape;
     public GameObject threeWay;
@@ -50,10 +46,15 @@ public class ConveyorScript : BuildingScript
 
         //Check if adjacent cells have a primary building to attach to
         
-        isTop = up != default ? up.hasPrimary() : false;
-        isRight = right != default ? right.hasPrimary() : false;
-        isBottom = down != default ? down.hasPrimary() : false ;
-        isLeft = left != default ? left.hasPrimary() : false;
+        //isTop = up != default ? up.hasPrimary() : false;
+        //isRight = right != default ? right.hasPrimary() : false;
+        //isBottom = down != default ? down.hasPrimary() : false ;
+        //isLeft = left != default ? left.hasPrimary() : false;
+
+        isTop = checkValidCell(up);
+        isRight = checkValidCell(right);
+        isBottom = checkValidCell(down);
+        isLeft = checkValidCell(left);
 
         //Debug.Log($"isTop: {isTop}, isRight: {isRight}, isLeft: {isLeft}, isBottom: {isBottom}");
 
@@ -117,36 +118,10 @@ public class ConveyorScript : BuildingScript
 
     }
 
-   
-    public void updateOutput() {
-        //List<>
-        //Debug.Log("NAME: " + parentGrid.GetGridObject(1,1).CanBuild());
-        GridObject up = parentGrid.GetGridObject((int)originPos.x, (int)originPos.z + 1);
-        GridObject right = parentGrid.GetGridObject((int)originPos.x + 1, (int)originPos.z);
-        GridObject down = parentGrid.GetGridObject((int)originPos.x, (int)originPos.z - 1);
-        GridObject left = parentGrid.GetGridObject((int)originPos.x - 1, (int)originPos.z);
-
-        if (up != default && up.primaryBuilding != null) {
-            
-        }
-        if (right != default && right.primaryBuilding != null) {
-            
-
-        }
-        if (down != default && down.primaryBuilding != null) {
-            adjacentBuildings.AddLast(down.primaryBuilding.GetComponent<BuildingScript>());
-
-        }
-        if (left != default && left.primaryBuilding != null) {
-            adjacentBuildings.AddLast(left.primaryBuilding.GetComponent<BuildingScript>());
-
-        }
-        List<(int, int)> visited = new List<(int, int)>();
-
-
+   //Checks if there are any other buildings or converyors to attach to
+    private bool checkValidCell(GridObject gridObj) {
+        return gridObj != default && gridObj.hasPrimary() && !gridObj.primaryBuilding.CompareTag("Rock");
     }
-
-    
 
 
 
