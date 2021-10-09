@@ -59,6 +59,6 @@ Material:
     - VoronoiOffset: 0
     - VoronoiOffset_: 0
     m_Colors:
-    - Color_: {r: 0.37428683, g: 1.3178681, b: 26.449652, a: 0}
+    - Color_: {r: 0.39441258, g: 6.0690928, b: 83.61527, a: 0}
     - Color_e893f1bf8ad3493784e61fa40b398be2: {r: 0.14225031, g: 0.12644473, b: 3.0188677, a: 0}
   m_BuildTextureStacks: []

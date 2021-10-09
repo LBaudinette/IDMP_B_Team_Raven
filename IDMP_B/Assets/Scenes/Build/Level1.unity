@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7194186452890431338, guid: ac09dba5515a8be4fb8c0bec25196d0c, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 7194186452890431339, guid: ac09dba5515a8be4fb8c0bec25196d0c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -17235,18 +17239,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1955177121, guid: 6adf5ea108f66bb4e871c55e309cf546, type: 3}
-      propertyPath: m_Colors.m_SelectedColor.b
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1955177121, guid: 6adf5ea108f66bb4e871c55e309cf546, type: 3}
-      propertyPath: m_Colors.m_SelectedColor.g
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1955177121, guid: 6adf5ea108f66bb4e871c55e309cf546, type: 3}
-      propertyPath: m_Colors.m_SelectedColor.r
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 1955177121, guid: 6adf5ea108f66bb4e871c55e309cf546, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
