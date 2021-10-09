@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 using TMPro;
 
 public class LevelManager : MonoBehaviour
@@ -35,6 +36,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private DialogueUI dialogueUI;
     [SerializeField] private DialogueObject testDialogueObject;
 
+    private GameObject portalMat;
+    private GameObject portalVFX;
+
     public enum ResourceType
     {
         Iron, Mineral
@@ -49,8 +53,13 @@ public class LevelManager : MonoBehaviour
         gb = GameObject.FindGameObjectWithTag("Grid Builder").GetComponent<GridBuilder>();
 
         // get gridbuilder to create staging ground, and enable SG script
-        sg = gb.CreateStagingGround(stagingGroundPos).GetComponent<StagingGroundPipe>();
+        GameObject stagingGround = gb.CreateStagingGround(stagingGroundPos);
+        sg = stagingGround.GetComponent<StagingGroundPipe>();
         sg.enabled = true;
+
+        portalMat = stagingGround.GetComponent<VFXAccessScript>().portalMat;
+        portalVFX = stagingGround.GetComponent<VFXAccessScript>().portalVFX;
+
 
         // merge iron and mineral pos lists for node placement
         nodePosList = new List<List<Vector3>>();
@@ -142,6 +151,11 @@ public class LevelManager : MonoBehaviour
 
         if (currIron >= ironNeeded && currMineral >= mineralNeeded)
         {
+            Debug.Log("level completed, player must move to end position");
+            Debug.Log("enabling portal");
+            portalVFX.SetActive(true);
+            StartCoroutine(waitToActivatePortalMat());
+            
             if (player.pos.x == endPos.x && player.pos.z == endPos.y)
             {
                 StartCoroutine(waitForPlayerMovement());
@@ -170,6 +184,18 @@ public class LevelManager : MonoBehaviour
         }
         OnLevelCompleted();
 
+    }
+    
+    IEnumerator waitToActivatePortalMat()
+    {
+        float elapsed = 0.0f;
+        float total = 1.0f;
+        while (elapsed < total)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        portalMat.SetActive(true);
     }
 
 }

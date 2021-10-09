@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PortalMat
+  m_Shader: {fileID: -6465566751694194690, guid: 6b836ba3143ab574bb1a7489f3037a78, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Mask_:
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_fe444827cbca4530b62b8599e7bbba05:
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - AlphaClip_: 0
+    - DissolveAmount_: 1.33
+    - MaskMult_: 5
+    - MaskPower_: 0.5
+    - Speed_: 0.5
+    - TwirlStrength_: -20
+    - Vector1_08d867b41f134dfcbd2a5bcca4fb2376: 30
+    - Vector1_5a7bfc83b41c4b61b47ac8bcd6e77875: 0.5
+    - Vector1_5d30b40cde834534a5a7bf837977bbaf: 0.5
+    - Vector1_711e9d725c4340deb3bac6dc4323ef54: 0
+    - Vector1_853b8ae3e7354672b4862f6fd6046b4c: 2
+    - Vector1_93232b13bba144839b99df9d70aaabaa: 0.5
+    - Vector1_a3344dbc1f5d4d43aec23d9e42077deb: 0
+    - Vector1_ea675a8ba88e435aadb6f9ad97f9e4bf: 5
+    - VoronoiDensity: 2.5
+    - VoronoiDensity_: 2.5
+    - VoronoiOffset: 0
+    - VoronoiOffset_: 0
+    m_Colors:
+    - Color_: {r: 0.37428683, g: 1.3178681, b: 26.449652, a: 0}
+    - Color_e893f1bf8ad3493784e61fa40b398be2: {r: 0.14225031, g: 0.12644473, b: 3.0188677, a: 0}
+  m_BuildTextureStacks: []
