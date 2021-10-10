@@ -58,7 +58,7 @@ public class BuildingScript : MonoBehaviour {
             return resources;
         else {
             foreach (GameObject building in adjacentCells) {
-                if (visitedIDs.Contains(building.GetInstanceID()) || gameObject.CompareTag("Rock"))
+                if (visitedIDs.Contains(building.GetInstanceID()) || building.CompareTag("Rock"))
                     continue;
                 resources.AddRange(building.GetComponent<BuildingScript>().CheckAdjacent(visitedIDs));
             }

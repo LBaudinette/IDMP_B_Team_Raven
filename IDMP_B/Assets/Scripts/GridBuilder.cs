@@ -285,8 +285,9 @@ public class GridBuilder : MonoBehaviour {
             //currentGhostBuilding.GetComponentInChildren<MeshRenderer>().material = buildableMat;
             MeshRenderer[] childRenderers = currentGhostBuilding.GetComponentsInChildren<MeshRenderer>();
             foreach(MeshRenderer currentRenderer in childRenderers) {
-                //currentRenderer.materials[0] = buildableMat;
-                currentRenderer.material = buildableMat;
+                foreach(Material mat in currentRenderer.materials) {
+                    mat.color = Color.blue;
+                }
             }
 
 
@@ -303,9 +304,9 @@ public class GridBuilder : MonoBehaviour {
             currentGhostBuilding.GetComponentInChildren<MeshRenderer>().material = notBuildableMat;
             MeshRenderer[] childRenderers = currentGhostBuilding.GetComponentsInChildren<MeshRenderer>();
             foreach (MeshRenderer currentRenderer in childRenderers) {
-                //currentRenderer.materials[0] = notBuildableMat;
-                //currentRenderer.materials[1] = notBuildableMat;
-                currentRenderer.material = notBuildableMat;
+                foreach (Material mat in currentRenderer.materials) {
+                    mat.color = Color.red;
+                }
             }
 
             // if player tries to build here, delete ghost building
