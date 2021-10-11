@@ -326,7 +326,7 @@ public class LevelManager : MonoBehaviour
                 } else if (elapsed >= 3 * factor)
                 {
                     rewindEffect.material.SetFloat("SpiralSpeed_", Mathf.SmoothStep(0.75f, 0.5f, (elapsed - (3 * factor)) / (3 * factor)));
-                    rewindEffect.material.SetFloat("SpiralPower_", Mathf.SmoothStep(0.75f, 5f, (elapsed - (3 * factor)) / (3 * factor)));
+                    rewindEffect.material.SetFloat("SpiralPower_", Mathf.SmoothStep(0.75f, 10f, (elapsed - (3 * factor)) / (3 * factor)));
                 }
                 
                 pixelImage.texture = snapshots[snapshots.Count - 1 - (int)Mathf.Floor(Mathf.SmoothStep(0, snapshots.Count - 1, elapsed / rewindTime))];
