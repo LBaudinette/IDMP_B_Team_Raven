@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: RewindMat
+  m_Shader: {fileID: -6465566751694194690, guid: 5f615f41b1a4b3d4b8ec92a336e6d3a5, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_987d9431845b466cbd2bf0bc55ff15c5:
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_3dd83e62cb5d4102898250f6326b89da_Texture_1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - MaskPower_: 2
+    - SpiralPower_: 3.9113872
+    - SpiralSpeed_: 0.564036
+    - SpiralStrength_: 10
+    - Vector1_461d9243716e4617b1e3904345f9f209: 15
+    - Vector1_5093776b2a6c45e687048814fd13d88e: 1
+    - Vector1_6320b66a5bf847269ac3679b8c15ab7c: 2
+    - Vector1_8dcd6ba2973d445a8d43e10dc35e2c29: 0.75
+    - Vector1_c1f1e97279af4808b220f6df606917ce: 25
+    m_Colors:
+    - Color_: {r: 0.16711637, g: 0, b: 2.3396225, a: 0}
+    - Color_03db8129ab184a3ba7e7fcaf8306d692: {r: 0.1254902, g: 0, b: 1.992157, a: 0}
+    - PixelateFactors_: {r: 128, g: 72, b: 0, a: 0}
+    - Vector2_3ad5c167a0dc4bc1b439597febf67c53: {r: 128, g: 72, b: 0, a: 0}
+  m_BuildTextureStacks: []

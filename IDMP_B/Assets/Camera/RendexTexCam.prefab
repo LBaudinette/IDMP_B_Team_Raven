@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7978524126565875817}
   m_Layer: 0
   m_Name: RendexTexCam
-  m_TagString: Untagged
+  m_TagString: PixelCam
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

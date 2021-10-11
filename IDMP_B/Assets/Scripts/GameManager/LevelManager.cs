@@ -50,6 +50,7 @@ public class LevelManager : MonoBehaviour
     private Camera pixelCam;
     public float rewindTime;
     public float snapshotInterval;
+    private RawImage rewindEffect;
 
     public enum ResourceType
     {
@@ -80,12 +81,13 @@ public class LevelManager : MonoBehaviour
 
         portalMat = stagingGround.GetComponent<VFXAccessScript>().portalMat;
         portalVFX = stagingGround.GetComponent<VFXAccessScript>().portalVFX;
-
+        rewindEffect = GameObject.FindGameObjectWithTag("RewindVFX").GetComponent<RawImage>();
 
         // merge iron and mineral pos lists for node placement
         nodePosList = new List<List<Vector3>>();
         nodePosList.Add(ironPosList);
         nodePosList.Add(mineralPosList);
+
         // place nodes
         PlaceNodes();
 
@@ -216,6 +218,7 @@ public class LevelManager : MonoBehaviour
 
     private void takeSnapshot()
     {
+        //rewindEffect.enabled = true;
         RenderTexture snapshot = new RenderTexture(360, 180, 24, RenderTextureFormat.ARGB32);
         snapshot.Create();
         snapshot.filterMode = FilterMode.Point;
@@ -225,6 +228,7 @@ public class LevelManager : MonoBehaviour
         pixelCam.Render();
         pixelCam.targetTexture = currentTex;
         snapshots.Add(snapshot);
+        //rewindEffect.enabled = false;
         Debug.Log("snapshot count = " + snapshots.Count);
     }
 
@@ -306,11 +310,25 @@ public class LevelManager : MonoBehaviour
         if (snapshots.Count > 0)
         {
             float elapsed = 0;
-
+            rewindEffect.enabled = true;
+            
             RawImage pixelImage = pixelCanvas.GetComponent<RawImage>();
             while (elapsed < rewindTime)
             {
                 elapsed += Time.deltaTime;
+
+                float factor = rewindTime / 5;
+
+                if (elapsed < factor)
+                {
+                    rewindEffect.material.SetFloat("SpiralSpeed_", Mathf.SmoothStep(0.5f, 0.75f, elapsed / factor));
+                    rewindEffect.material.SetFloat("SpiralPower_", Mathf.SmoothStep(3f, 0.75f, elapsed / factor));
+                } else if (elapsed >= 3 * factor)
+                {
+                    rewindEffect.material.SetFloat("SpiralSpeed_", Mathf.SmoothStep(0.75f, 0.5f, (elapsed - (3 * factor)) / (3 * factor)));
+                    rewindEffect.material.SetFloat("SpiralPower_", Mathf.SmoothStep(0.75f, 5f, (elapsed - (3 * factor)) / (3 * factor)));
+                }
+                
                 pixelImage.texture = snapshots[snapshots.Count - 1 - (int)Mathf.Floor(Mathf.SmoothStep(0, snapshots.Count - 1, elapsed / rewindTime))];
                 yield return null;
             }

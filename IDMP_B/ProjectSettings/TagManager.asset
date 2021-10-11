@@ -16,6 +16,7 @@ TagManager:
   - OriginPosition
   - PixelCanvas
   - PixelCam
+  - RewindVFX
   layers:
   - Default
   - TransparentFX
