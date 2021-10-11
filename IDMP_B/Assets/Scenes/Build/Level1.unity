@@ -4751,6 +4751,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RendexTexCam
       objectReference: {fileID: 0}
+    - target: {fileID: 7978524126565875822, guid: 8fd65058f3f44e84f8efdbc0d829e32a, type: 3}
+      propertyPath: m_TagString
+      value: PixelCam
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fd65058f3f44e84f8efdbc0d829e32a, type: 3}
 --- !u!1 &364208703
@@ -5779,7 +5783,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4ec3fc34299172f4a9bcec3412383303, type: 2}
+  - {fileID: 2100000, guid: e7207641037c25349a9b12193fbdfcc5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14377,6 +14381,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2800181518049286926, guid: 50695aa7b24868845aa1061e017bee0e, type: 3}
+      propertyPath: m_TagString
+      value: PixelCanvas
+      objectReference: {fileID: 0}
     - target: {fileID: 2800181518668833904, guid: 50695aa7b24868845aa1061e017bee0e, type: 3}
       propertyPath: m_Name
       value: PixelCamCanvas

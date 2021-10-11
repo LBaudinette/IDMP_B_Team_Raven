@@ -14,6 +14,8 @@ TagManager:
   - Grid Builder
   - Rock
   - OriginPosition
+  - PixelCanvas
+  - PixelCam
   layers:
   - Default
   - TransparentFX

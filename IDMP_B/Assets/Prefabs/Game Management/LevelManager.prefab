@@ -63,6 +63,8 @@ MonoBehaviour:
   actionLimitText: {fileID: 0}
   dialogueUI: {fileID: 0}
   testDialogueObject: {fileID: 0}
+  rewindTime: 2
+  snapshotInterval: 0.025
 --- !u!114 &7554798851347301700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,6 +77,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfded82e7bf1c4a4fbc68c044407bcd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventNum: 0
   triggers: []
   outcomes: []
+  onLevelFailed: {fileID: 0}
+  onLevelCompleted: {fileID: 0}
+  objsToChangeMats: []

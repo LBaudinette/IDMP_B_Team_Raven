@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
+using UnityEngine.UI;
 using TMPro;
 
 public class LevelManager : MonoBehaviour
@@ -44,6 +45,12 @@ public class LevelManager : MonoBehaviour
 
     private delegate void Del();
 
+    private List<RenderTexture> snapshots;
+    private GameObject pixelCanvas;
+    private Camera pixelCam;
+    public float rewindTime;
+    public float snapshotInterval;
+
     public enum ResourceType
     {
         Iron, Mineral
@@ -52,14 +59,19 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        pixelCam = GameObject.FindGameObjectWithTag("PixelCam").GetComponent<Camera>();
+
         levelFailed = false;
         levelCompletable = false;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControls>();
-        // get game manager, gridbuilder
+        // get game manager, gridbuilder, eventmanager
         gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         gb = GameObject.FindGameObjectWithTag("Grid Builder").GetComponent<GridBuilder>();
         em = GetComponent<EventManager>();
         em.SetDialogueUI(dialogueUI);
+
+        // get pixel canvas
+        pixelCanvas = GameObject.FindGameObjectWithTag("PixelCanvas");
 
         // get gridbuilder to create staging ground, and enable SG script
         GameObject stagingGround = gb.CreateStagingGround(stagingGroundPos);
@@ -77,15 +89,25 @@ public class LevelManager : MonoBehaviour
         // place nodes
         PlaceNodes();
 
+        // create snapshot list and take first shot
+        snapshots = new List<RenderTexture>();
+        takeSnapshot();
+
         // update UI & show dialogue
         UpdateActionLimitUI();
         dialogueUI.ShowDialogue(testDialogueObject);
+
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        // hotkey for reloading level
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            OnLevelFailed();
+        }
     }
 
     void PlaceNodes()
@@ -188,6 +210,22 @@ public class LevelManager : MonoBehaviour
         // check current event trigger
         em.checkCurrentTrigger();
 
+        takeSnapshot();
+
+    }
+
+    private void takeSnapshot()
+    {
+        RenderTexture snapshot = new RenderTexture(360, 180, 24, RenderTextureFormat.ARGB32);
+        snapshot.Create();
+        snapshot.filterMode = FilterMode.Point;
+        snapshot.antiAliasing = 1;
+        RenderTexture currentTex = pixelCam.targetTexture;
+        pixelCam.targetTexture = snapshot;
+        pixelCam.Render();
+        pixelCam.targetTexture = currentTex;
+        snapshots.Add(snapshot);
+        Debug.Log("snapshot count = " + snapshots.Count);
     }
 
     public void OnLevelCompleted()
@@ -201,7 +239,7 @@ public class LevelManager : MonoBehaviour
     {
         Debug.Log("level failed, reloading");
         Del handler = gm.ReloadScene;
-        StartCoroutine(waitForDialogue(handler));
+        StartCoroutine(Rewind(handler));
     }
 
     private void UpdateActionLimitUI()
@@ -219,8 +257,15 @@ public class LevelManager : MonoBehaviour
     IEnumerator waitForPlayerMovement()
     {
         Debug.Log("checking for player movement");
+        float elapsed = 0.0f;
         while (player.playerMoving)
         {
+            elapsed += Time.deltaTime;
+            if (elapsed >= snapshotInterval)
+            {
+                takeSnapshot();
+                elapsed = elapsed - snapshotInterval;
+            }
             yield return null;
         }
 
@@ -247,7 +292,31 @@ public class LevelManager : MonoBehaviour
             yield return null;
         }
 
-        onDialogueClose();
+        onDialogueClose?.Invoke();
+    }
+
+    IEnumerator Rewind(Del AfterRewind)
+    {
+
+        while (dialogueUI.IsOpen)
+        {
+            yield return null;
+        }
+
+        if (snapshots.Count > 0)
+        {
+            float elapsed = 0;
+
+            RawImage pixelImage = pixelCanvas.GetComponent<RawImage>();
+            while (elapsed < rewindTime)
+            {
+                elapsed += Time.deltaTime;
+                pixelImage.texture = snapshots[snapshots.Count - 1 - (int)Mathf.Floor(Mathf.SmoothStep(0, snapshots.Count - 1, elapsed / rewindTime))];
+                yield return null;
+            }
+        }
+
+        AfterRewind?.Invoke();
     }
 
 }
