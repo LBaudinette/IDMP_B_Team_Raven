@@ -13,6 +13,7 @@ TagManager:
   - Mineral Node
   - Grid Builder
   - Rock
+  - OriginPosition
   layers:
   - Default
   - TransparentFX

@@ -6,6 +6,8 @@ using TMPro;
 
 public class LevelManager : MonoBehaviour
 {
+    public bool levelCompletable;
+    public bool levelFailed;
     public int actionCount;
     public int actionLimit;
     public Vector3 startPos;
@@ -14,6 +16,7 @@ public class LevelManager : MonoBehaviour
     StagingGroundPipe sg;
     GridBuilder gb;
     PlayerControls player;
+    EventManager em;
 
     public List<BuildingSO> buildingSOs;
 
@@ -39,6 +42,8 @@ public class LevelManager : MonoBehaviour
     private GameObject portalMat;
     private GameObject portalVFX;
 
+    private delegate void Del();
+
     public enum ResourceType
     {
         Iron, Mineral
@@ -47,10 +52,14 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        levelFailed = false;
+        levelCompletable = false;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControls>();
         // get game manager, gridbuilder
         gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         gb = GameObject.FindGameObjectWithTag("Grid Builder").GetComponent<GridBuilder>();
+        em = GetComponent<EventManager>();
+        em.SetDialogueUI(dialogueUI);
 
         // get gridbuilder to create staging ground, and enable SG script
         GameObject stagingGround = gb.CreateStagingGround(stagingGroundPos);
@@ -108,14 +117,26 @@ public class LevelManager : MonoBehaviour
 
     public void OnNewAction()
     {
+        // wait till player movement has finished, then update stuff
+        StartCoroutine(waitForPlayerMovement());
+    }
+
+    void updateStuff()
+    {
         sg.UpdateResources();
         actionCount++;
         UpdateActionLimitUI();
         // if level failed - player exceeded action limit
-        if (actionCount > actionLimit)
+        if (actionCount >= actionLimit)
         {
+            levelFailed = true;
             // restart level / reload scene
-            gm.ReloadScene();
+            // if there's an event that functions on the player failing the level, do that
+            // else reload the scene
+            if (!em.OnLevelFailed())
+            {
+                OnLevelFailed();
+            }
         }
         else
         {
@@ -128,8 +149,6 @@ public class LevelManager : MonoBehaviour
     void CheckCompletion()
     {
         Debug.Log("checking completion");
-        // check for staging ground for level completion via belt output enum
-        // stagingGround.output == whatever
 
         List<ResourceType> currResources = sg.GetCurrentResources();
         int currIron = 0;
@@ -151,27 +170,50 @@ public class LevelManager : MonoBehaviour
 
         if (currIron >= ironNeeded && currMineral >= mineralNeeded)
         {
-            Debug.Log("level completed, player must move to end position");
+            levelCompletable = true;
+            Debug.Log("level completable, player must move to end position");
             Debug.Log("enabling portal");
             portalVFX.SetActive(true);
             StartCoroutine(waitToActivatePortalMat());
             if (player.pos.x == endPos.x && player.pos.z == endPos.z)
             {
-                StartCoroutine(waitForPlayerMovement());
+                // if there's an event that should be triggered by the level being completed, trigger it, else end normally
+                if (!em.OnLevelCompleted())
+                {
+                    OnLevelCompleted();
+                }
             }
         }
 
+        // check current event trigger
+        em.checkCurrentTrigger();
+
     }
 
-    void OnLevelCompleted()
+    public void OnLevelCompleted()
     {
         Debug.Log("level completed!");
-        gm.LoadNextScene();
+        Del handler = gm.LoadNextScene;
+        StartCoroutine(waitForDialogue(handler));
+    }
+
+    public void OnLevelFailed()
+    {
+        Debug.Log("level failed, reloading");
+        Del handler = gm.ReloadScene;
+        StartCoroutine(waitForDialogue(handler));
     }
 
     private void UpdateActionLimitUI()
     {
-        actionLimitText.text = (actionLimit - actionCount).ToString();
+        if (actionCount >= actionLimit)
+        {
+            actionLimitText.text = "0";
+            actionLimitText.faceColor = Color.red;
+        } else
+        {
+            actionLimitText.text = (actionLimit - actionCount).ToString();
+        }
     }
 
     IEnumerator waitForPlayerMovement()
@@ -181,7 +223,8 @@ public class LevelManager : MonoBehaviour
         {
             yield return null;
         }
-        OnLevelCompleted();
+
+        updateStuff();
 
     }
     
@@ -195,6 +238,16 @@ public class LevelManager : MonoBehaviour
             yield return null;
         }
         portalMat.SetActive(true);
+    }
+
+    IEnumerator waitForDialogue(Del onDialogueClose)
+    {
+        while (dialogueUI.IsOpen)
+        {
+            yield return null;
+        }
+
+        onDialogueClose();
     }
 
 }
