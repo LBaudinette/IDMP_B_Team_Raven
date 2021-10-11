@@ -6734,7 +6734,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 438e4f49c493c374b9577315a19219e1, type: 2}
   resourceList: []
   resourcePosList: []
-  width: 4
+  width: 5
   height: 4
   cellSize: 1
   buildableMat: {fileID: 2100000, guid: 2d190be058d6aae48b608f7cc3bc279f, type: 2}
@@ -21429,7 +21429,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: actionLimit
-      value: 19
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: mineralNeeded
@@ -21493,7 +21493,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: ironPosList.Array.data[0].x
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: ironPosList.Array.data[0].z
@@ -21501,7 +21501,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: rock2PosList.Array.data[0].x
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: rock2PosList.Array.data[0].z
@@ -21513,7 +21513,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: mineralPosList.Array.data[0].x
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: mineralPosList.Array.data[0].z
@@ -21521,7 +21521,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: mineralPosList.Array.data[1].x
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: mineralPosList.Array.data[1].z
@@ -21645,6 +21645,54 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4681706260480240723, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681706260480240723, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681706260480240723, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681706260480240723, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681706261009700176, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681706261009700176, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681706261009700176, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681706261009700176, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681706261715266937, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681706261715266937, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681706261715266937, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681706261715266937, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4681706262401656129, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
       propertyPath: m_Name
       value: PauseCanvas

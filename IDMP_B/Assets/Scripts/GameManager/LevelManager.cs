@@ -155,8 +155,7 @@ public class LevelManager : MonoBehaviour
             Debug.Log("enabling portal");
             portalVFX.SetActive(true);
             StartCoroutine(waitToActivatePortalMat());
-            
-            if (player.pos.x == endPos.x && player.pos.z == endPos.y)
+            if (player.pos.x == endPos.x && player.pos.z == endPos.z)
             {
                 StartCoroutine(waitForPlayerMovement());
             }
