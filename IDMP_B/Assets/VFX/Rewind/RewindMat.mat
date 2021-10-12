@@ -45,7 +45,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - MaskPower_: 2
-    - SpiralPower_: 11.345721
+    - SpiralPower_: 15
     - SpiralSpeed_: 0.56411016
     - SpiralStrength_: 10
     - Vector1_461d9243716e4617b1e3904345f9f209: 15
