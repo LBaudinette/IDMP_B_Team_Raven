@@ -25,10 +25,16 @@ public class EventManager : MonoBehaviour
     void Start()
     {
         eventNum = 0;
-        eventsExist = true;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControls>();
         grid = GameObject.FindGameObjectWithTag("Grid Builder").GetComponent<GridBuilder>();
         levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
+        if (triggers.Count <= 0)
+        {
+            eventsExist = false;
+        } else
+        {
+            eventsExist = true;
+        }
     }
 
     // Update is called once per frame

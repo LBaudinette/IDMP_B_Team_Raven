@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outcomeType: 0
   dialogue: {fileID: 11400000, guid: 159837b3b1dfda242bb8a9a1d1beebce, type: 2}
-  material: {fileID: 0}
-  objectsToChangeMats: []
+  materials: []
+  matIndexes: 

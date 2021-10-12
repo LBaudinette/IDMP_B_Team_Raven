@@ -106,9 +106,14 @@ public class LevelManager : MonoBehaviour
     void Update()
     {
         // hotkey for reloading level
-        if (Input.GetKeyDown(KeyCode.R))
+        if (!dialogueUI.IsOpen)
         {
-            OnLevelFailed();
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                OnLevelFailed();
+            }
+
+            
         }
     }
 
@@ -151,7 +156,7 @@ public class LevelManager : MonoBehaviour
         actionCount++;
         UpdateActionLimitUI();
         // if level failed - player exceeded action limit
-        if (actionCount >= actionLimit)
+        if (actionCount > actionLimit)
         {
             levelFailed = true;
             // restart level / reload scene
@@ -234,6 +239,7 @@ public class LevelManager : MonoBehaviour
 
     public void OnLevelCompleted()
     {
+        actionLimitText.faceColor = Color.green;
         Debug.Log("level completed!");
         Del handler = gm.LoadNextScene;
         StartCoroutine(waitForDialogue(handler));
