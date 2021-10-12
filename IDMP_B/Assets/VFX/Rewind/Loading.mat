@@ -32,11 +32,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - AlphaBlend_: 0.94629157
+    - AlphaBlend_: 0.34986413
     - MaskPower_: 3
-    - SpiralPower_: 0.9002558
-    - SpiralSpeed_: 0.73657286
+    - SpiralPower_: 9.457652
+    - SpiralSpeed_: 0.5135587
     - SpiralStrength_: 10
+    - Vector1_1fdfe2aab3124cd6ba93fd6b06573717: 0.05
     m_Colors:
     - Color_: {r: 0.1254902, g: 0, b: 1.992157, a: 0}
     - PixelateFactors_: {r: 128, g: 72, b: 0, a: 0}

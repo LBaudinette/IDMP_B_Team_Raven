@@ -124,8 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aef8e5eac85ce624a97b7dc163b80cfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spiralEaseTime: 1
-  loadWaitTimeMin: 1
+  spiralEaseTime: 1.5
+  loadWaitTimeMin: 0.5
 --- !u!223 &1968829975428479469
 Canvas:
   m_ObjectHideFlags: 0

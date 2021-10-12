@@ -1566,14 +1566,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
-    - target: {fileID: 5889558096757776372, guid: bac1c1fba01f8a84f820eb88c2922194, type: 3}
-      propertyPath: spiralEaseTime
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5889558096757776372, guid: bac1c1fba01f8a84f820eb88c2922194, type: 3}
-      propertyPath: loadWaitTimeMin
-      value: 0.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bac1c1fba01f8a84f820eb88c2922194, type: 3}
 --- !u!1001 &5819470084881579617
