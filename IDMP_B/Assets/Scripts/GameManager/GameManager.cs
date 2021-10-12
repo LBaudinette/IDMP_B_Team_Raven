@@ -50,28 +50,29 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("smooth step = " + Mathf.SmoothStep(0.5f, 0.75f, elapsed / spiralEaseTime));
             loadingVFX.material.SetFloat("SpiralSpeed_", Mathf.SmoothStep(0.5f, 0.75f, elapsed / spiralEaseTime));
-            loadingVFX.material.SetFloat("SpiralPower_", Mathf.SmoothStep(15f, 0.5f, elapsed / spiralEaseTime));
+            loadingVFX.material.SetFloat("SpiralPower_", Mathf.SmoothStep(10f, 0.1f, elapsed / spiralEaseTime));
             elapsed += Time.deltaTime;
             yield return null;
         }
 
+        loadingVFX.material.SetFloat("SpiralPower_", 0.1f);
         Debug.Log("eased in");
-
-        loadingVFX.material.SetFloat("MaskPower_", 0f);
-        SceneManager.LoadSceneAsync(levelIndex);
+        AsyncOperation load = SceneManager.LoadSceneAsync(levelIndex);
+        load.allowSceneActivation = false;
         elapsed = 0.0f;
-        while (elapsed <= loadWaitTimeMin && !SceneManager.GetSceneByBuildIndex(levelIndex).isLoaded)
+        while (elapsed <= loadWaitTimeMin && !load.isDone)
         {
             elapsed += Time.deltaTime;
             yield return null;
         }
-        loadingVFX.material.SetFloat("MaskPower_", 1.5f);
+
+        load.allowSceneActivation = true;
 
         elapsed = 0.0f;
         while (elapsed <= spiralEaseTime)
         {
             loadingVFX.material.SetFloat("SpiralSpeed_", Mathf.SmoothStep(0.75f, 0.5f, elapsed / spiralEaseTime));
-            loadingVFX.material.SetFloat("SpiralPower_", Mathf.SmoothStep(0.5f, 15f, elapsed / spiralEaseTime));
+            loadingVFX.material.SetFloat("SpiralPower_", Mathf.SmoothStep(0.1f, 10f, elapsed / spiralEaseTime));
             elapsed += Time.deltaTime;
             yield return null;
         }

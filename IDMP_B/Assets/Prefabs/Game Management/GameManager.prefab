@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spiralEaseTime: 1
-  loadWaitTimeMin: 5
+  loadWaitTimeMin: 1
 --- !u!223 &1968829975428479469
 Canvas:
   m_ObjectHideFlags: 0
