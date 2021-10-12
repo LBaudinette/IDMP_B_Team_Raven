@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     int levelIndex;
-    public int spiralEaseTime;
+    public float spiralEaseTime;
+    public float loadWaitTimeMin;
     private RawImage loadingVFX;
 
     private void Awake()
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour
     public void LoadNextScene()
     {
         levelIndex++;
-        SceneManager.LoadSceneAsync(levelIndex);
+        StartCoroutine(LoadSpiral());
     }
 
     public void ReloadScene()
@@ -41,30 +42,40 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
     }
 
-    IEnumerator SpiralIn()
+    IEnumerator LoadSpiral()
     {
         float elapsed = 0.0f;
-        
+        loadingVFX.enabled = true;
         while (elapsed <= spiralEaseTime)
         {
+            Debug.Log("smooth step = " + Mathf.SmoothStep(0.5f, 0.75f, elapsed / spiralEaseTime));
             loadingVFX.material.SetFloat("SpiralSpeed_", Mathf.SmoothStep(0.5f, 0.75f, elapsed / spiralEaseTime));
-            loadingVFX.material.SetFloat("SpiralPower_", Mathf.SmoothStep(15f, 0.001f, elapsed / spiralEaseTime));
+            loadingVFX.material.SetFloat("SpiralPower_", Mathf.SmoothStep(15f, 0.5f, elapsed / spiralEaseTime));
             elapsed += Time.deltaTime;
             yield return null;
         }
+
+        Debug.Log("eased in");
+
+        loadingVFX.material.SetFloat("MaskPower_", 0f);
+        SceneManager.LoadSceneAsync(levelIndex);
+        elapsed = 0.0f;
+        while (elapsed <= loadWaitTimeMin && !SceneManager.GetSceneByBuildIndex(levelIndex).isLoaded)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        loadingVFX.material.SetFloat("MaskPower_", 1.5f);
 
         elapsed = 0.0f;
-        //while (elapsed <= spiral)
-    }
-
-    IEnumerator SpiralOut()
-    {
-        float elapsed = 0.0f;
-
         while (elapsed <= spiralEaseTime)
         {
+            loadingVFX.material.SetFloat("SpiralSpeed_", Mathf.SmoothStep(0.75f, 0.5f, elapsed / spiralEaseTime));
+            loadingVFX.material.SetFloat("SpiralPower_", Mathf.SmoothStep(0.5f, 15f, elapsed / spiralEaseTime));
             elapsed += Time.deltaTime;
             yield return null;
         }
+        loadingVFX.enabled = false;
     }
+
 }
