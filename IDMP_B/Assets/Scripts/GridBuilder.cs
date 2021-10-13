@@ -131,13 +131,20 @@ public class GridBuilder : MonoBehaviour {
                        mousePos,
                        Quaternion.Euler(0, BuildingSO.GetDirectionAngle(currentDirection),
                        0));
-        currentGhostBuilding.GetComponentInChildren<MeshRenderer>().material = notBuildableMat;
+        MeshRenderer[] childRenderers = currentGhostBuilding.GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer currentRenderer in childRenderers)
+        {
+            foreach (Material mat in currentRenderer.materials)
+            {
+                mat.color = Color.red;
+            }
+        }
     }
 
     private void BuildMode(Vector3 mousePos) {
 
         #region Building Options
-        if (Input.GetKeyDown("1")) {
+        /*if (Input.GetKeyDown("1")) {
             CreateNewGhostBuilding(buildingList[0], mousePos);
 
             //UtilsClass.CreateWorldTextPopup(currentBuilding.name, mousePos, 2);
@@ -177,7 +184,7 @@ public class GridBuilder : MonoBehaviour {
             //UtilsClass.CreateWorldTextPopup(currentBuilding.name, mousePos, 2);
 
 
-        }
+        }*/
 
         //if (Input.GetMouseButtonDown(1)) {
         //    currentDirection = BuildingSO.GetNextDirection(currentDirection);
@@ -204,7 +211,20 @@ public class GridBuilder : MonoBehaviour {
 
         GridObject gridObject = grid.GetGridObject(mousePos);
 
-        if (gridObject == default) return;
+        if (gridObject == default)
+        {
+            if (Input.GetMouseButtonUp(1))
+            {
+                //UtilsClass.CreateWorldTextPopup("Cannot build here!", mousePos);
+                Destroy(currentGhostBuilding);
+                currentMode = BuildingMode.Idle;
+                return;
+            } else
+            {
+                return;
+            }
+        }
+        
         
         List<Vector3> occupiedGridCells = currentBuilding.GetGridPositionList(gridCellIndices, currentDirection);
 
@@ -366,7 +386,14 @@ public class GridBuilder : MonoBehaviour {
                        mousePos,
                        Quaternion.Euler(0, BuildingSO.GetDirectionAngle(currentDirection),
                        0));
-        currentGhostBuilding.GetComponentInChildren<MeshRenderer>().material = notBuildableMat;
+        MeshRenderer[] childRenderers = currentGhostBuilding.GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer currentRenderer in childRenderers)
+        {
+            foreach (Material mat in currentRenderer.materials)
+            {
+                mat.color = Color.red;
+            }
+        }
     }
 
     public void CreateBuilding(Vector3 spawnPos, Quaternion rotation, BuildingSO buildingSO, Vector3 originIndices) {
