@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: BuiltHarvester
   m_EditorClassIdentifier: 
   dialogue:
-  - You just built a harvester here - it will output harvested resources to adjacent
-    pipes.
-  - It should also turn (2, 0, 1) and (1, 0, 1) blue, to mark where to construct
-    pipes.
+  - "Excellent! All that\u2019s left to do is connect it the Pyrrhus Co. Miner to
+    the Pyrrhus Co. Dimensional Portal."
+  - You can place Pyrrhus Co. Transportation Pipes by using RMB on nodes adjacent
+    to you. Try placing them along the highlighted path!
   responses: []

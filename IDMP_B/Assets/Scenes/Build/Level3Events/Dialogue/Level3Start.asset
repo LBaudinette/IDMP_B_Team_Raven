@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b08c083090f2814b9bf2b8ca72f61f8, type: 3}
+  m_Name: Level3Start
+  m_EditorClassIdentifier: 
+  dialogue:
+  - Welcome to the third and final step of employee onboarding, Employee #47971712!
+    You'll be out there and successfully setting up Dimensional Harvests in no time.
+  - As the contents of pocket dimensions are largely unknown until entered, your
+    placement of Pyrrhus Co. Miners and Transportation Pipes may unintentionally
+    obstruct your ability to successfully set up a Dimensional Harvest.
+  - In the case that you are unable to complete your Dimensional Harvest, or otherwise
+    end up stranded in a pocket dimension, don't worry!
+  - "You can press \u2018R\u2019 to manually trigger your Pyrrhus Co. Local Temporal
+    Rewind Device if you run into any issues! Easy, right?"
+  - However, it is best practice to plan your traversal and construction ahead of
+    time to avoid negative situations in which you may be legally or mortally liable
+    for.
+  responses: []

@@ -10,9 +10,11 @@ public class GameManager : MonoBehaviour
     public float spiralEaseTime;
     public float loadWaitTimeMin;
     private RawImage loadingVFX;
+    public bool playStartDialogue;
 
     private void Awake()
     {
+        playStartDialogue = true;
         levelIndex = SceneManager.GetActiveScene().buildIndex;
         DontDestroyOnLoad(this.gameObject);
         loadingVFX = GetComponentInChildren<RawImage>();
@@ -34,11 +36,13 @@ public class GameManager : MonoBehaviour
     public void LoadNextScene()
     {
         levelIndex++;
+        playStartDialogue = true;
         StartCoroutine(LoadSpiral());
     }
 
     public void ReloadScene()
     {
+        playStartDialogue = false;
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
     }
 

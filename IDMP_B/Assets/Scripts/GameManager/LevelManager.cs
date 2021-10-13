@@ -97,7 +97,10 @@ public class LevelManager : MonoBehaviour
 
         // update UI & show dialogue
         UpdateActionLimitUI();
-        dialogueUI.ShowDialogue(testDialogueObject);
+        if (gm.playStartDialogue)
+        {
+            dialogueUI.ShowDialogue(testDialogueObject);
+        }
 
         
     }
@@ -112,7 +115,6 @@ public class LevelManager : MonoBehaviour
             {
                 OnLevelFailed();
             }
-
             
         }
     }

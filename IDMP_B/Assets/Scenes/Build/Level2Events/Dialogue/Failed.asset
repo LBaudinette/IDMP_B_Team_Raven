@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Failed
   m_EditorClassIdentifier: 
   dialogue:
-  - Damn, you failed the level. Consider gitting gud, I guess?
+  - You appear to have exceeded the action limit, Employee #47971712. Please ensure
+    that you use the experience of this failure to succeed on your next attempt.
   responses: []

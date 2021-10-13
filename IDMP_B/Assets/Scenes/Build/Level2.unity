@@ -5074,7 +5074,7 @@ Transform:
   m_LocalScale: {x: 6.727051, y: 1, z: 5.835581}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &383831728
 GameObject:
@@ -5718,7 +5718,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4ec3fc34299172f4a9bcec3412383303, type: 2}
+  - {fileID: 2100000, guid: 916773656799a1b4a8ba5c6c0ca5473a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6809,7 +6809,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!120 &575916349
 LineRenderer:
@@ -8728,7 +8728,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &717991018
 GameObject:
@@ -19182,7 +19182,7 @@ Transform:
   m_LocalScale: {x: 6.727051, y: 1, z: 5.835581}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1854747563
 GameObject:
@@ -21553,7 +21553,7 @@ PrefabInstance:
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: testDialogueObject
       value: 
-      objectReference: {fileID: 11400000, guid: 1e1f33de0a077394a8907f7edd73b321, type: 2}
+      objectReference: {fileID: 11400000, guid: 8c8502f5c4d80bd4896e399dfbaed11b, type: 2}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: rockSOs.Array.data[0]
       value: 
@@ -21666,6 +21666,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7554798851347301700, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
+      propertyPath: onLevelFailed
+      value: 
+      objectReference: {fileID: 11400000, guid: dcd85fd5f1e48ea4abcb35851d9a6c03, type: 2}
+    - target: {fileID: 7554798851347301700, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
+      propertyPath: onLevelCompleted
+      value: 
+      objectReference: {fileID: 11400000, guid: 52f70a8d023784c4995f5a00f649e94f, type: 2}
+    - target: {fileID: 7554798851347301700, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
+      propertyPath: outcomes.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7554798851347301700, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
+      propertyPath: triggers.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7554798851347301700, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
+      propertyPath: outcomes.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7554798851347301700, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
+      propertyPath: triggers.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7554798851347301700, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
+      propertyPath: objsToChangeMats.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7554798851347301700, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
+      propertyPath: objsToChangeMats.Array.data[0]
+      value: 
+      objectReference: {fileID: 469187922}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
 --- !u!1001 &4620358359998968989
@@ -21689,7 +21721,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4620358360148984548, guid: 02c308ec4dc4efe478be35e0a269021e, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4620358360148984548, guid: 02c308ec4dc4efe478be35e0a269021e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -21740,6 +21772,54 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4681706260480240723, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681706260480240723, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681706260480240723, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681706260480240723, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681706261009700176, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681706261009700176, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681706261009700176, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681706261009700176, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681706261715266937, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681706261715266937, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681706261715266937, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681706261715266937, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4681706262401656129, guid: 79024fef3cd11ce4ba35ba254a1d6abd, type: 3}
       propertyPath: m_Name
       value: PauseCanvas

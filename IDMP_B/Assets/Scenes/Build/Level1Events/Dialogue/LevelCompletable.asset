@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: LevelCompletable
   m_EditorClassIdentifier: 
   dialogue:
-  - This should trigger when the level is completeable. It should also turn the end
-    position blue to mark where you should move to.
+  - Excellent work!
+  - Please return to the position you entered the pocket dimension from so that the
+    Pyrrhus Co. Dimensional Portal can transport you to the next pocket dimension.
   responses: []

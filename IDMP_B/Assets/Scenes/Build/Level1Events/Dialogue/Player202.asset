@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player202
   m_EditorClassIdentifier: 
   dialogue:
-  - This is dialogue to test the event system that should trigger when you step on
-    a position - in this case (2, 0, 2). Please work.
-  - Build a harvester here by standing adjacent to this square and using RMB.
+  - What you're standing on right now is the solution to our world's problems.
+  - Move adjacent to the resource node, and use RMB to place a Pyrrhus Co. Miner
+    on it to start extracting raw materials.
   responses: []

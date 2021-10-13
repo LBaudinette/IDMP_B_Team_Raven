@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Completed
   m_EditorClassIdentifier: 
   dialogue:
-  - You should have just successfully completed the level. Congrats!
+  - Congratulations on your first successful dimensional harvest, Employee #47971712.
+    Onwards and upwards!
   responses: []

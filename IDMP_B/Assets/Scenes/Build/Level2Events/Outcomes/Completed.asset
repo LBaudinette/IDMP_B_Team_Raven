@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18d5c1afe15f78469519b46da4e58a0, type: 3}
+  m_Name: Completed
+  m_EditorClassIdentifier: 
+  outcomeType: 2
+  dialogue: {fileID: 11400000, guid: cbd2d38f06f1ba044b5da61a90d8e994, type: 2}
+  materials:
+  - {fileID: 2100000, guid: 4ec3fc34299172f4a9bcec3412383303, type: 2}
+  matIndexes: 00000000

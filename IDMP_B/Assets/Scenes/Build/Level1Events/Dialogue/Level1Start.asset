@@ -13,7 +13,16 @@ MonoBehaviour:
   m_Name: Level1Start
   m_EditorClassIdentifier: 
   dialogue:
-  - Welcome to the game! This is supposed to trigger at the start of the level.
-  - This is a second dialogue box. After this, other dialogue should be handled by
-    the event system. Go stand on top of the blue minerals.
+  - Greetings, Employee #971712, and welcome your first shift in Dimensional Production!
+  - "As you may know, Earth is suffering from an extreme lack of natural resources
+    \u2013 what little is left on the planet is extremely difficult to access, even
+    for our advanced machinery. "
+  - "As such, Pyrrhus Co. has been granted international subsidies to solve this
+    issue. That\u2019s where you come in!"
+  - "By leveraging proprietary Pyrrhus Co. technology, we\u2019re able to open pocket
+    dimensions, and send employees like you to harvest natural resources from them
+    instead!"
+  - If, for any reason, you get stuck, please press the R key - but more on that
+    later!
+  - Start by moving to the blue mineral node by clicking on adjacent nodes with LMB.
   responses: []
