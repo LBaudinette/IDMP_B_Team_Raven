@@ -20,7 +20,7 @@ public class ConveyorScript : BuildingScript
     // Start is called before the first frame update
     void Start()
     {
-        currentRotation = LShape;
+        currentRotation = horizontal;
     }
 
     // Update is called once per frame
