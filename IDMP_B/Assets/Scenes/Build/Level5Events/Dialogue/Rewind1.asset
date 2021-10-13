@@ -18,6 +18,6 @@ MonoBehaviour:
   - '"By entering into employment with Pyrrhus Co. you agree that only the passage
     of time in completed pocket dimensions is counted towards your shift length."'
   - '"Employees'' subjective perception of time is not counted towards shift length."'
-  - Time alloted for single post-onboarding question exceeded. Please complete your
-    next Dimensional Harvest before asking additional questions.
-  responses: []
+  responses:
+  - responseText: Too many pages in contract
+    dialogueObject: {fileID: 11400000, guid: 64823bf286e80cf4794c69f0cb74016a, type: 2}

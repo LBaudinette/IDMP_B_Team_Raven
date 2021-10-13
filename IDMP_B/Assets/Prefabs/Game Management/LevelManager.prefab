@@ -63,7 +63,7 @@ MonoBehaviour:
   actionLimitText: {fileID: 0}
   dialogueUI: {fileID: 0}
   testDialogueObject: {fileID: 0}
-  rewindTime: 2
+  rewindTime: 1.5
   snapshotInterval: 0.025
 --- !u!114 &7554798851347301700
 MonoBehaviour:
