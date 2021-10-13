@@ -34,8 +34,8 @@ Material:
     m_Floats:
     - AlphaBlend_: 0.34986413
     - MaskPower_: 3
-    - SpiralPower_: 9.999999
-    - SpiralSpeed_: 0.5
+    - SpiralPower_: 9.999908
+    - SpiralSpeed_: 0.50000226
     - SpiralStrength_: 10
     - Vector1_1fdfe2aab3124cd6ba93fd6b06573717: 0.05
     m_Colors:
