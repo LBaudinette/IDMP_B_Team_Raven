@@ -60,6 +60,10 @@ public class BuildingScript : MonoBehaviour {
             foreach (GameObject building in adjacentCells) {
                 if (visitedIDs.Contains(building.GetInstanceID()) || building.CompareTag("Rock"))
                     continue;
+                Vector3 offset = this.originPos;
+                offset.x++;
+                if (this.CompareTag("Staging Ground") && building.GetComponent<BuildingScript>().originPos != offset)
+                    continue;
                 resources.AddRange(building.GetComponent<BuildingScript>().CheckAdjacent(visitedIDs));
             }
             return resources;

@@ -93,19 +93,19 @@ public class GridBuilder : MonoBehaviour {
         {
             StartBuildMode();
             currentMode = BuildingMode.Build;
-            UtilsClass.CreateWorldTextPopup(currentMode.ToString(), mousePos, 2);
+            //UtilsClass.CreateWorldTextPopup(currentMode.ToString(), mousePos, 2);
 
         }
         else if (Input.GetKeyDown(".")) {
             StartDestroyMode();
             currentMode = BuildingMode.Destroy;
-            UtilsClass.CreateWorldTextPopup(currentMode.ToString(), mousePos, 2);
+            //UtilsClass.CreateWorldTextPopup(currentMode.ToString(), mousePos, 2);
 
         }
         else if (Input.GetKeyDown("/")) {
             Destroy(currentGhostBuilding);
             currentMode = BuildingMode.Idle;
-            UtilsClass.CreateWorldTextPopup(currentMode.ToString(), mousePos, 2);
+            //UtilsClass.CreateWorldTextPopup(currentMode.ToString(), mousePos, 2);
 
         }
 
@@ -140,41 +140,41 @@ public class GridBuilder : MonoBehaviour {
         if (Input.GetKeyDown("1")) {
             CreateNewGhostBuilding(buildingList[0], mousePos);
 
-            UtilsClass.CreateWorldTextPopup(currentBuilding.name, mousePos, 2);
+            //UtilsClass.CreateWorldTextPopup(currentBuilding.name, mousePos, 2);
 
         }
         else if (Input.GetKeyDown("2")) {
 
             CreateNewGhostBuilding(buildingList[1], mousePos);
 
-            UtilsClass.CreateWorldTextPopup(currentBuilding.name, mousePos, 2);
+            //UtilsClass.CreateWorldTextPopup(currentBuilding.name, mousePos, 2);
 
         }
         else if (Input.GetKeyDown("3")) {
             CreateNewGhostBuilding(buildingList[2], mousePos);
 
-            UtilsClass.CreateWorldTextPopup(currentBuilding.name, mousePos, 2);
+            //UtilsClass.CreateWorldTextPopup(currentBuilding.name, mousePos, 2);
 
 
         }
         else if (Input.GetKeyDown("4")) { //Harvester
             CreateNewGhostBuilding(buildingList[3], mousePos);
 
-            UtilsClass.CreateWorldTextPopup(currentBuilding.name, mousePos, 2);
+            //UtilsClass.CreateWorldTextPopup(currentBuilding.name, mousePos, 2);
 
 
         }
         else if (Input.GetKeyDown("5")) { //Conveyor 
             CreateNewGhostBuilding(buildingList[4], mousePos);
 
-            UtilsClass.CreateWorldTextPopup(currentBuilding.name, mousePos, 2);
+            //UtilsClass.CreateWorldTextPopup(currentBuilding.name, mousePos, 2);
 
 
         }
         else if (Input.GetKeyDown("6")) { //staging ground 
             CreateNewGhostBuilding(buildingList[5], mousePos);
 
-            UtilsClass.CreateWorldTextPopup(currentBuilding.name, mousePos, 2);
+            //UtilsClass.CreateWorldTextPopup(currentBuilding.name, mousePos, 2);
 
 
         }
@@ -312,7 +312,7 @@ public class GridBuilder : MonoBehaviour {
             // if player tries to build here, delete ghost building
             if (Input.GetMouseButtonUp(1))
             {
-                UtilsClass.CreateWorldTextPopup("Cannot build here!", mousePos);
+                //UtilsClass.CreateWorldTextPopup("Cannot build here!", mousePos);
                 Destroy(currentGhostBuilding);
                 currentMode = BuildingMode.Idle;
             }

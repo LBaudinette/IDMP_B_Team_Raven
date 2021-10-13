@@ -35,7 +35,13 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextScene()
     {
-        levelIndex++;
+        if (levelIndex >= SceneManager.sceneCountInBuildSettings - 1)
+        {
+            levelIndex = 0;
+        } else
+        {
+            levelIndex++;
+        }
         playStartDialogue = true;
         StartCoroutine(LoadSpiral());
     }

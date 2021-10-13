@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
   - Don't worry! Even if you make mistakes, thanks to the Pyrrhus Co. Local Temporal
-    Rewind Device, the actual amount of time that will be less than 10 hours.
+    Rewind Device, the actual amount of time that passes will be less than 10 hours.
   - Time alloted for single post-onboarding question exceeded. Please complete your
     next Dimensional Harvest before asking additional questions.
   responses: []

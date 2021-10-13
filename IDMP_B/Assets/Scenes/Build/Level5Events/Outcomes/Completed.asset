@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18d5c1afe15f78469519b46da4e58a0, type: 3}
   m_Name: Completed
   m_EditorClassIdentifier: 
-  outcomeType: 0
+  outcomeType: 1
   dialogue: {fileID: 0}
   materials:
   - {fileID: 2100000, guid: e7207641037c25349a9b12193fbdfcc5, type: 2}
