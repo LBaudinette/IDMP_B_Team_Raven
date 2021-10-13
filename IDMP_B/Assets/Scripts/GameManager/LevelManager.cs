@@ -226,7 +226,7 @@ public class LevelManager : MonoBehaviour
     private void takeSnapshot()
     {
         //rewindEffect.enabled = true;
-        RenderTexture snapshot = new RenderTexture(360, 180, 24, RenderTextureFormat.ARGB32);
+        RenderTexture snapshot = new RenderTexture(480, 270, 24, RenderTextureFormat.ARGB32);
         snapshot.Create();
         snapshot.filterMode = FilterMode.Point;
         snapshot.antiAliasing = 1;
