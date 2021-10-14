@@ -22981,7 +22981,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: actionLimit
-      value: 22
+      value: 38
       objectReference: {fileID: 0}
     - target: {fileID: 3194009059125558038, guid: ddc1e557104f71249b2c61fe4b59f4f1, type: 3}
       propertyPath: mineralNeeded

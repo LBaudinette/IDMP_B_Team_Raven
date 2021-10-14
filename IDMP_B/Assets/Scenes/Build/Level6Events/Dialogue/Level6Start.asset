@@ -15,5 +15,5 @@ MonoBehaviour:
   dialogue:
   - Following your onboarding, do you have any additional questions?
   responses:
-  - responseText: Can I contact other peoples?
+  - responseText: Contact others
     dialogueObject: {fileID: 0}
