@@ -15,5 +15,5 @@ MonoBehaviour:
   outcomeType: 0
   dialogue: {fileID: 0}
   materials:
-  - {fileID: 2100000, guid: e7207641037c25349a9b12193fbdfcc5, type: 2}
+  - {fileID: 2100000, guid: 4ec3fc34299172f4a9bcec3412383303, type: 2}
   matIndexes: 00000000
